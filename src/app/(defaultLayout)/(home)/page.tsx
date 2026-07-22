@@ -1,13 +1,7 @@
-const page = () => {
-  return (
-    <div className="flex flex-col gap-4 mt-6 mx-4">
-      <h2 className="text-5xl">Welcome home.</h2>
-      <p className="text-2xl">
-        Your Next.js starter pack is ready—built for speed, clarity, and
-        shipping fast.
-      </p>
-    </div>
-  );
-};
+import { HomePage } from "@/components/marketing/home-page";
+import { SiteFooter } from "@/components/marketing/site-footer";
+import { SiteHeader } from "@/components/marketing/site-header";
 
-export default page;
+export default function Page() {
+  return <><SiteHeader /><HomePage /><SiteFooter /></>;
+}
