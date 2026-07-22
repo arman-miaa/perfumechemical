@@ -11,9 +11,57 @@ export const products = [
   { name: "Cotton Bloom", category: "Laundry care", image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=85" },
 ];
 
-export const aboutLinks = ["Board of Directors", "Mission, Vision & Values", "Our Management Team", "Dividend Distribution Policy", "Business Ethics & Code of Conduct", "Code of Conduct for the Chairperson & Others"];
-export const investorLinks = ["Directors' Reports", "AGM Notice", "EGM Notice", "Notice", "Annual Report", "Proxy & Attendance Report", "Shareholding Position", "Unpaid/Unclaimed Dividend", "Dividend Distribution Policy", "C G Compliance Status", "Announcement", "Financial Calendar", "Investor Relations Contact", "BSEC Guidelines"];
-export const primaryLinks = ["Product", "Financial Report", "NRC Report", "Share Info", "PSI", "Media", "Contact Us"];
+export interface NavLinkItem {
+  title: string;
+  href: string;
+}
+
+export const aboutLinks: NavLinkItem[] = [
+  { title: "Board of Directors", href: "/about/board-of-directors" },
+  { title: "Mission, Vision & Values", href: "/about/mission-vision-values" },
+  { title: "Our Management Team", href: "/about/management-team" },
+  { title: "Dividend Distribution Policy", href: "/about/dividend-policy" },
+  { title: "Business Ethics & Code of Conduct", href: "/about/business-ethics" },
+  { title: "Code of Conduct for the Chairperson & Others", href: "/about/code-of-conduct-chairperson" },
+];
+
+export const investorLinks: NavLinkItem[] = [
+  { title: "Directors' Reports", href: "/investor-relations/directors-reports" },
+  { title: "AGM Notice", href: "/investor-relations/agm-notice" },
+  { title: "EGM Notice", href: "/investor-relations/egm-notice" },
+  { title: "Notice", href: "/investor-relations/notice" },
+  { title: "Annual Report", href: "/investor-relations/annual-report" },
+  { title: "Proxy & Attendance Report", href: "/investor-relations/proxy-attendance" },
+  { title: "Shareholding Position", href: "/investor-relations/shareholding-position" },
+  { title: "Unpaid/Unclaimed Dividend", href: "/investor-relations/unpaid-dividend" },
+  { title: "Dividend Distribution Policy", href: "/investor-relations/dividend-policy" },
+  { title: "CG Compliance Status", href: "/investor-relations/cg-compliance" },
+  { title: "Announcement", href: "/investor-relations/announcement" },
+  { title: "Financial Calendars", href: "/investor-relations/financial-calendars" },
+  { title: "Investor Relations Contact", href: "/investor-relations/investor-contact" },
+  { title: "BSEC Guidelines", href: "/investor-relations/bsec-guidelines" },
+];
+
+export const primaryLinks: NavLinkItem[] = [
+  { title: "Product", href: "/product" },
+  { title: "Financial Report", href: "/financial-report" },
+  { title: "NRC Report", href: "/nrc-report" },
+  { title: "Share Info", href: "/share-info" },
+  { title: "PSI", href: "/psi" },
+  { title: "Media", href: "/media" },
+  { title: "Contact Us", href: "/contact-us" },
+];
+
+export const drawerMenuLinks: NavLinkItem[] = [
+  { title: "Shop", href: "/shop" },
+  { title: "Blog", href: "/blog" },
+  { title: "Portfolio", href: "/portfolio" },
+  { title: "About us", href: "/about" },
+  { title: "Contact us", href: "/contact-us" },
+  { title: "Wishlist", href: "/wishlist" },
+  { title: "Compare", href: "/compare" },
+  { title: "Login / Register", href: "/login" },
+];
 
 export interface CategoryNavItem {
   id: string;
@@ -26,43 +74,42 @@ export const categoryNavItems: CategoryNavItem[] = [
   {
     id: "about-us",
     title: "About Us",
-    href: "#",
+    href: "/about",
     children: [
-      { id: "board-of-directors", title: "Board of Directors", href: "#" },
-      { id: "mission-vision-values", title: "Mission, Vision & Values", href: "#" },
-      { id: "management-team", title: "Our Management Team", href: "#" },
-      { id: "dividend-distribution-policy", title: "Dividend Distribution Policy", href: "#" },
-      { id: "business-ethics-code-of-conduct", title: "Business Ethics & Code of Conduct", href: "#" },
-      { id: "code-of-conduct-chairperson", title: "Code of Conduct for the Chairperson & Others", href: "#" },
+      { id: "board-of-directors", title: "Board of Directors", href: "/about/board-of-directors" },
+      { id: "mission-vision-values", title: "Mission, Vision & Values", href: "/about/mission-vision-values" },
+      { id: "management-team", title: "Our Management Team", href: "/about/management-team" },
+      { id: "dividend-distribution-policy", title: "Dividend Distribution Policy", href: "/about/dividend-policy" },
+      { id: "business-ethics-code-of-conduct", title: "Business Ethics & Code of Conduct", href: "/about/business-ethics" },
+      { id: "code-of-conduct-chairperson", title: "Code of Conduct for the Chairperson & Others", href: "/about/code-of-conduct-chairperson" },
     ],
   },
   {
     id: "investor-relations",
     title: "Investor Relations",
-    href: "#",
+    href: "/investor-relations",
     children: [
-      { id: "directors-reports", title: "Directors' Reports", href: "#" },
-      { id: "agm-notice", title: "AGM Notice", href: "#" },
-      { id: "egm-notice", title: "EGM Notice", href: "#" },
-      { id: "notice", title: "Notice", href: "#" },
-      { id: "annual-report", title: "Annual Report", href: "#" },
-      { id: "proxy-attendance-report", title: "Proxy & Attendance Report", href: "#" },
-      { id: "shareholding-position", title: "Shareholding Position", href: "#" },
-      { id: "unpaid-unclaimed-dividend", title: "Unpaid/Unclaimed Dividend", href: "#" },
-      { id: "investor-dividend-distribution-policy", title: "Dividend Distribution Policy", href: "#" },
-      { id: "cg-compliance-status", title: "CG Compliance Status", href: "#" },
-      { id: "announcement", title: "Announcement", href: "#" },
-      { id: "financial-calendars", title: "Financial Calendars", href: "#" },
-      { id: "investor-relations-contact", title: "Investor Relations Contact", href: "#" },
-      { id: "bsec-guidelines", title: "BSEC Guidelines", href: "#" },
+      { id: "directors-reports", title: "Directors' Reports", href: "/investor-relations/directors-reports" },
+      { id: "agm-notice", title: "AGM Notice", href: "/investor-relations/agm-notice" },
+      { id: "egm-notice", title: "EGM Notice", href: "/investor-relations/egm-notice" },
+      { id: "notice", title: "Notice", href: "/investor-relations/notice" },
+      { id: "annual-report", title: "Annual Report", href: "/investor-relations/annual-report" },
+      { id: "proxy-attendance-report", title: "Proxy & Attendance Report", href: "/investor-relations/proxy-attendance" },
+      { id: "shareholding-position", title: "Shareholding Position", href: "/investor-relations/shareholding-position" },
+      { id: "unpaid-unclaimed-dividend", title: "Unpaid/Unclaimed Dividend", href: "/investor-relations/unpaid-dividend" },
+      { id: "investor-dividend-distribution-policy", title: "Dividend Distribution Policy", href: "/investor-relations/dividend-policy" },
+      { id: "cg-compliance-status", title: "CG Compliance Status", href: "/investor-relations/cg-compliance" },
+      { id: "announcement", title: "Announcement", href: "/investor-relations/announcement" },
+      { id: "financial-calendars", title: "Financial Calendars", href: "/investor-relations/financial-calendars" },
+      { id: "investor-relations-contact", title: "Investor Relations Contact", href: "/investor-relations/investor-contact" },
+      { id: "bsec-guidelines", title: "BSEC Guidelines", href: "/investor-relations/bsec-guidelines" },
     ],
   },
-  { id: "product", title: "Product", href: "#" },
-  { id: "financial-report", title: "Financial Report", href: "#" },
-  { id: "nrc-report", title: "NRC Report", href: "#" },
-  { id: "share-info", title: "Share Info", href: "#" },
-  { id: "psi", title: "PSI", href: "#" },
-  { id: "media", title: "Media", href: "#" },
-  { id: "contact-us", title: "Contact Us", href: "#" },
+  { id: "product", title: "Product", href: "/product" },
+  { id: "financial-report", title: "Financial Report", href: "/financial-report" },
+  { id: "nrc-report", title: "NRC Report", href: "/nrc-report" },
+  { id: "share-info", title: "Share Info", href: "/share-info" },
+  { id: "psi", title: "PSI", href: "/psi" },
+  { id: "media", title: "Media", href: "/media" },
+  { id: "contact-us", title: "Contact Us", href: "/contact-us" },
 ];
-

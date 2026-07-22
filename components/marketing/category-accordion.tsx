@@ -8,6 +8,7 @@ import { CategoryNavItem } from "@/src/data/site-content";
 interface CategoryAccordionProps {
   items: CategoryNavItem[];
   onNavigate?: () => void;
+  searchQuery?: string;
 }
 
 interface CategoryAccordionItemProps {
@@ -73,24 +74,45 @@ export function CategoryAccordionItem({
   );
 }
 
-export function CategoryAccordion({ items, onNavigate }: CategoryAccordionProps) {
+export function CategoryAccordion({ items, onNavigate, searchQuery = "" }: CategoryAccordionProps) {
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
 
   const handleToggle = (id: string) => {
     setOpenCategoryId((prev) => (prev === id ? null : id));
   };
 
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+
+  const filteredItems = items.filter((item) => {
+    if (!normalizedQuery) return true;
+    const titleMatches = item.title.toLowerCase().includes(normalizedQuery);
+    const childMatches = item.children?.some((c) => c.title.toLowerCase().includes(normalizedQuery));
+    return titleMatches || childMatches;
+  });
+
   return (
     <nav className="category-accordion-container" aria-label="Categories navigation">
-      {items.map((item) => (
-        <CategoryAccordionItem
-          key={item.id}
-          item={item}
-          isOpen={openCategoryId === item.id}
-          onToggle={handleToggle}
-          onNavigate={onNavigate}
-        />
-      ))}
+      {filteredItems.length === 0 ? (
+        <div className="no-search-results">
+          No categories matching &quot;{searchQuery}&quot;
+        </div>
+      ) : (
+        filteredItems.map((item) => {
+          const isSearching = Boolean(normalizedQuery);
+          const childMatches = item.children?.some((c) => c.title.toLowerCase().includes(normalizedQuery));
+          const isOpen = isSearching ? Boolean(childMatches) : openCategoryId === item.id;
+
+          return (
+            <CategoryAccordionItem
+              key={item.id}
+              item={item}
+              isOpen={isOpen}
+              onToggle={handleToggle}
+              onNavigate={onNavigate}
+            />
+          );
+        })
+      )}
     </nav>
   );
 }

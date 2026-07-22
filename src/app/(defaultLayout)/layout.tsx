@@ -1,9 +1,12 @@
-const CommonLayout = ({ children }: { children: React.ReactNode }) => {
+import { SiteFooter } from "@/components/marketing/site-footer";
+import { SiteHeader } from "@/components/marketing/site-header";
+
+export default function CommonLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <SiteHeader />
       <main>{children}</main>
+      <SiteFooter />
     </>
   );
-};
-
-export default CommonLayout;
+}
