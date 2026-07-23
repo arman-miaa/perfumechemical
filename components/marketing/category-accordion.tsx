@@ -33,7 +33,7 @@ export function CategoryAccordionItem({
       <Link
         href={item.href || "#"}
         onClick={onNavigate}
-        className="category-nav-link"
+        className="flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-[#16202b] text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors"
         style={{ paddingLeft: depth > 0 ? `${16 + depth * 16}px` : undefined }}
       >
         <span>{item.title}</span>
@@ -42,27 +42,36 @@ export function CategoryAccordionItem({
   }
 
   return (
-    <div className={`category-accordion-item ${isOpen ? "is-expanded" : ""}`}>
+    <div className="border-b border-[#e5e2df] bg-white">
       <button
         type="button"
-        className="category-accordion-header"
+        className="flex items-center justify-between w-full min-h-[50px] px-5 border-0 bg-white text-[#16202b] text-xs font-semibold uppercase text-left hover:bg-[#faf8f6] transition-colors cursor-pointer"
         onClick={() => onToggle(item.id)}
         aria-expanded={isOpen}
         style={{ paddingLeft: depth > 0 ? `${16 + depth * 16}px` : undefined }}
       >
         <span>{item.title}</span>
-        <span className="category-chevron-box" aria-hidden="true">
-          <ChevronDown size={18} className="category-chevron-icon" />
+        <span className="inline-flex items-center justify-center w-6 h-6 ml-3 shrink-0" aria-hidden="true">
+          <ChevronDown
+            size={18}
+            className={`text-[#65615e] transition-transform duration-280 ease-out ${
+              isOpen ? "rotate-180 text-[#16202b]" : ""
+            }`}
+          />
         </span>
       </button>
-      <div className="category-accordion-body">
-        <div className="category-accordion-content">
+      <div
+        className={`grid transition-[grid-template-rows] duration-280 ease-out bg-white ${
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className={`overflow-hidden transition-opacity duration-250 ${isOpen ? "opacity-100" : "opacity-0"}`}>
           {item.children?.map((child) => (
             <Link
               key={child.id}
               href={child.href || "#"}
               onClick={onNavigate}
-              className="category-nav-child-link"
+              className="block py-2.5 px-5 border-t border-[#f2efec] text-[#5d5753] text-xs font-medium leading-tight hover:text-[#8f174d] hover:bg-[#faf5f7] transition-colors"
               style={{ paddingLeft: `${32 + depth * 12}px` }}
             >
               <span>{child.title}</span>
@@ -91,9 +100,9 @@ export function CategoryAccordion({ items, onNavigate, searchQuery = "" }: Categ
   });
 
   return (
-    <nav className="category-accordion-container" aria-label="Categories navigation">
+    <nav className="block w-full bg-white" aria-label="Categories navigation">
       {filteredItems.length === 0 ? (
-        <div className="no-search-results">
+        <div className="p-6 text-xs text-[#88827e] text-center italic">
           No categories matching &quot;{searchQuery}&quot;
         </div>
       ) : (
