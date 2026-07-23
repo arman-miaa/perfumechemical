@@ -51,7 +51,7 @@ export function HeroCarousel() {
   };
 
   return (
-    <section className="relative overflow-hidden min-h-[480px] md:min-h-[530px] bg-[#f7d6df]" aria-label="Featured offers">
+    <section className="relative overflow-hidden min-h-[580px] md:min-h-[680px] lg:min-h-[740px] bg-[#f7d6df]" aria-label="Featured offers">
       <Carousel
         setApi={setApi}
         plugins={[plugin.current]}
@@ -62,52 +62,52 @@ export function HeroCarousel() {
           {slides.map((slide, index) => (
             <CarouselItem
               key={`${slide.theme}-${index}`}
-              className="pl-0 min-w-full min-h-[480px] md:min-h-[530px] grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center px-[46px] md:px-[max(9vw,70px)] py-[55px] md:py-[70px] relative overflow-hidden"
+              className="pl-0 min-w-full min-h-[580px] md:min-h-[680px] lg:min-h-[740px] grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center px-6 md:px-[max(8vw,70px)] py-16 md:py-24 relative overflow-hidden"
             >
               {/* Background slide */}
               <div className={`absolute inset-0 ${getThemeBg(slide.theme)}`} />
 
               {/* Decorative shapes */}
-              <div className="absolute w-[330px] md:w-[520px] h-[330px] md:h-[520px] -right-[90px] md:right-[6%] -top-[160px] rounded-full bg-white/30 blur-[2px] pointer-events-none" />
-              <div className="absolute w-[250px] h-[250px] right-0 -bottom-[100px] rounded-full bg-white/30 pointer-events-none" />
+              <div className="absolute w-[400px] md:w-[620px] h-[400px] md:h-[620px] -right-[100px] md:right-[5%] -top-[180px] rounded-full bg-white/30 blur-[2px] pointer-events-none" />
+              <div className="absolute w-[300px] h-[300px] right-0 -bottom-[120px] rounded-full bg-white/30 pointer-events-none" />
 
               {/* Copy section */}
-              <div className="relative z-10 max-w-[620px]">
-                <p className={`uppercase tracking-[0.14em] text-[9px] md:text-[11px] font-extrabold mb-[18px] ${slide.theme === "pink" ? "text-[#a93169]" : "text-[#e9d4e8]"}`}>
+              <div className="relative z-10 max-w-[650px] py-4">
+                <p className={`uppercase tracking-[0.16em] text-[10px] md:text-xs font-extrabold mb-5 ${slide.theme === "pink" ? "text-[#a93169]" : "text-[#e9d4e8]"}`}>
                   {slide.eyebrow}
                 </p>
-                <h1 className={`font-bold text-[44px] md:text-[clamp(42px,5.2vw,78px)] leading-[1.02] tracking-[-0.06em] m-0 ${slide.theme === "pink" ? "text-[#f01275]" : "text-white"}`}>
+                <h1 className={`font-bold text-[48px] md:text-[clamp(52px,5.8vw,86px)] leading-[1.02] tracking-[-0.06em] m-0 ${slide.theme === "pink" ? "text-[#f01275]" : "text-white"}`}>
                   {slide.title.split("\n").map((line) => (
                     <span key={line} className="block">{line}</span>
                   ))}
                 </h1>
                 <Link
                   href="#products"
-                  className={`inline-flex items-center gap-[7px] mt-5 md:mt-[28px] px-[18px] py-[13px] uppercase text-[11px] font-extrabold tracking-[0.08em] ${
+                  className={`inline-flex items-center gap-[8px] mt-6 md:mt-[34px] px-6 py-4 uppercase text-xs font-extrabold tracking-[0.09em] rounded-md transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 ${
                     slide.theme === "pink"
-                      ? "bg-[#9a1956] text-white"
+                      ? "bg-[#9a1956] text-white hover:bg-[#801245]"
                       : slide.theme === "violet"
-                      ? "bg-white text-[#742362]"
-                      : "bg-white text-[#17684e]"
+                      ? "bg-white text-[#742362] hover:bg-slate-50"
+                      : "bg-white text-[#17684e] hover:bg-slate-50"
                   }`}
                 >
-                  {slide.label} <ChevronRight size={17} />
+                  {slide.label} <ChevronRight size={18} />
                 </Link>
               </div>
 
               {/* Product graphic */}
-              <div className="relative z-10 h-[190px] md:h-[390px] mt-3 md:mt-0 scale-[0.65] md:scale-100 origin-right-bottom md:origin-center">
-                <div className="absolute w-[350px] h-[350px] rounded-full bg-white/35 right-[7%] top-[20px]" />
+              <div className="relative z-10 h-[240px] md:h-[440px] mt-4 md:mt-0 scale-[0.75] md:scale-110 origin-right-bottom md:origin-center">
+                <div className="absolute w-[380px] h-[380px] rounded-full bg-white/35 right-[5%] top-[10px]" />
 
                 {/* Back box */}
                 <div
-                  className={`flex flex-col justify-center absolute w-[170px] h-[155px] border-2 border-white/70 shadow-[18px_22px_24px_rgba(76,18,46,0.19)] p-[15px] right-[36%] top-[68px] rotate-7 opacity-80 ${
+                  className={`flex flex-col justify-center absolute w-[180px] h-[165px] border-2 border-white/70 shadow-[20px_24px_28px_rgba(76,18,46,0.19)] p-4 right-[36%] top-[68px] rotate-7 opacity-80 rounded-sm ${
                     slide.product === "cleaner"
                       ? "bg-gradient-to-br from-[#e8fff0] to-[#b8efca] text-[#187550]"
                       : "bg-gradient-to-br from-white to-[#ffe1ec] text-[#e62378]"
                   }`}
                 >
-                  <b className="font-serif text-[28px] tracking-[-0.08em]">manola</b>
+                  <b className="font-serif text-[30px] tracking-[-0.08em]">manola</b>
                   <span className="whitespace-pre-line uppercase leading-[1.35] text-[10px] font-bold mt-[7px]">
                     {slide.product === "cream" ? "Brightening\nskin cream" : slide.product === "lotion" ? "Silk bloom\nbody lotion" : "Fresh home\ncleaner"}
                   </span>
@@ -115,7 +115,7 @@ export function HeroCarousel() {
 
                 {/* Front box */}
                 <div
-                  className={`flex flex-col justify-center absolute border-2 border-white/70 shadow-[18px_22px_24px_rgba(76,18,46,0.19)] p-[15px] -rotate-2 w-[195px] h-[173px] ${
+                  className={`flex flex-col justify-center absolute border-2 border-white/70 shadow-[20px_24px_28px_rgba(76,18,46,0.19)] p-4 -rotate-2 w-[205px] h-[185px] rounded-sm ${
                     slide.product === "lotion"
                       ? "right-[6%] top-[124px] bg-gradient-to-br from-white to-[#ffe1ec] text-[#e62378]"
                       : slide.product === "cleaner"
@@ -123,7 +123,7 @@ export function HeroCarousel() {
                       : "right-[13%] top-[138px] bg-gradient-to-br from-white to-[#ffe1ec] text-[#e62378]"
                   }`}
                 >
-                  <b className="font-serif text-[28px] tracking-[-0.08em]">manola</b>
+                  <b className="font-serif text-[30px] tracking-[-0.08em]">manola</b>
                   <span className="whitespace-pre-line uppercase leading-[1.35] text-[10px] font-bold mt-[7px]">
                     {slide.product === "cream" ? "Brightening\nskin cream" : slide.product === "lotion" ? "Silk bloom\nbody lotion" : "Fresh home\ncleaner"}
                   </span>
@@ -132,13 +132,13 @@ export function HeroCarousel() {
                 {/* Bottle if lotion or cleaner */}
                 {slide.product !== "cream" && (
                   <div
-                    className={`absolute top-[40px] shadow-[16px_20px_24px_rgba(76,18,46,0.2)] pt-[105px] text-center before:content-[''] before:absolute before:w-[58px] before:h-[65px] before:rounded-[10px_10px_2px_2px] before:-top-[53px] before:left-[33px] before:bg-gradient-to-r before:from-[#c59b5d] before:via-[#f7e5a2] before:to-[#9c7030] ${
+                    className={`absolute top-[35px] shadow-[18px_22px_26px_rgba(76,18,46,0.2)] pt-[115px] text-center before:content-[''] before:absolute before:w-[62px] before:h-[70px] before:rounded-[10px_10px_2px_2px] before:-top-[58px] before:left-[35px] before:bg-gradient-to-r before:from-[#c59b5d] before:via-[#f7e5a2] before:to-[#9c7030] ${
                       slide.product === "lotion"
-                        ? "right-[43%] w-[125px] h-[280px] rounded-[29px_29px_24px_24px] bg-gradient-to-r from-[#dbb0ed] via-white to-[#9148aa] text-[#673274]"
-                        : "right-[43%] w-[145px] h-[280px] rounded-[17px_17px_31px_31px] bg-gradient-to-r from-[#75d39a] via-[#e7ffed] to-[#39a66a] text-[#17734d]"
+                        ? "right-[43%] w-[135px] h-[300px] rounded-[30px_30px_26px_26px] bg-gradient-to-r from-[#dbb0ed] via-white to-[#9148aa] text-[#673274]"
+                        : "right-[43%] w-[155px] h-[300px] rounded-[18px_18px_32px_32px] bg-gradient-to-r from-[#75d39a] via-[#e7ffed] to-[#39a66a] text-[#17734d]"
                     }`}
                   >
-                    <b className="font-serif text-[28px] tracking-[-0.08em]">manola</b>
+                    <b className="font-serif text-[30px] tracking-[-0.08em]">manola</b>
                   </div>
                 )}
               </div>
@@ -149,31 +149,31 @@ export function HeroCarousel() {
         {/* Previous Navigation Arrow */}
         <button
           onClick={() => api?.scrollPrev()}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-[34px] md:w-[40px] h-[46px] md:h-[54px] border-0 bg-white/45 hover:bg-white text-[#463936] flex items-center justify-center cursor-pointer transition-all opacity-80 hover:opacity-100"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-[40px] md:w-[48px] h-[54px] md:h-[64px] border-0 bg-white/45 hover:bg-white text-[#463936] flex items-center justify-center cursor-pointer transition-all opacity-80 hover:opacity-100 shadow-md"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-6 h-6" />
         </button>
 
         {/* Next Navigation Arrow */}
         <button
           onClick={() => api?.scrollNext()}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-[34px] md:w-[40px] h-[46px] md:h-[54px] border-0 bg-white/45 hover:bg-white text-[#463936] flex items-center justify-center cursor-pointer transition-all opacity-80 hover:opacity-100"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-[40px] md:w-[48px] h-[54px] md:h-[64px] border-0 bg-white/45 hover:bg-white text-[#463936] flex items-center justify-center cursor-pointer transition-all opacity-80 hover:opacity-100 shadow-md"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-6 h-6" />
         </button>
 
         {/* Pagination Dots */}
-        <div className="absolute bottom-[10px] md:bottom-[14px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-[7px]">
+        <div className="absolute bottom-[16px] md:bottom-[22px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-[8px]">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}
-              className={`h-[7px] p-0 border rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-[8px] p-0 border rounded-full transition-all duration-300 cursor-pointer ${
                 index === current
-                  ? "w-[19px] bg-[#9d1c56] border-[#9d1c56]"
-                  : "w-[7px] bg-transparent border-[#d85c95]"
+                  ? "w-[24px] bg-[#9d1c56] border-[#9d1c56]"
+                  : "w-[8px] bg-transparent border-[#d85c95]"
               }`}
               aria-label={`Show slide ${index + 1}`}
             />
