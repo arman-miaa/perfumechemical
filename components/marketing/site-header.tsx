@@ -221,26 +221,27 @@ export function SiteHeader() {
           </button>
         </form>
 
-        {/* Right Actions: Login/Register, Wishlist, Cart */}
-        <div className="flex items-center gap-3 lg:gap-5">
+        {/* Right Actions: Account, Wishlist, Cart */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* User Account Icon */}
           <Link
             href="/login"
-            className="hidden sm:flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-rose-600 transition-colors"
+            className="p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
+            aria-label="Account / Login"
+            title="Account / Login"
           >
-            <User size={16} className="text-rose-500" />
-            <span>Login / Register</span>
+            <User size={20} />
           </Link>
-
-          <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
           {/* Wishlist */}
           <Link
             href="/wishlist"
-            className="relative p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all"
+            className="relative p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
             aria-label="Wishlist"
+            title="Wishlist"
           >
             <Heart size={20} />
-            <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+            <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
               0
             </span>
           </Link>
