@@ -1,5 +1,5 @@
-import { PagePlaceholder } from "@/components/marketing/page-placeholder";
+import { ContactUsComponent } from "@/components/marketing/contact-us-page";
 
 export default function ContactUsPage() {
-  return <PagePlaceholder title="Contact Us" category="Support & Inquiry" description="Get in touch with our team for business inquiries, support, or feedback." />;
+  return <ContactUsComponent />;
 }
