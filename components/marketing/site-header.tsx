@@ -1,60 +1,113 @@
 "use client";
 
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import {
+  ChevronDown,
+  Facebook,
+  Heart,
+  Instagram,
+  Menu,
+  Search,
+  ShoppingBag,
+  Sparkles,
+  User,
+  X,
+  Youtube,
+} from "lucide-react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   aboutLinks,
-  investorLinks,
-  primaryLinks,
-  drawerMenuLinks,
   categoryNavItems,
+  drawerMenuLinks,
+  investorLinks,
   NavLinkItem,
+  primaryLinks,
 } from "@/src/data/site-content";
 import { CategoryAccordion } from "./category-accordion";
 
-type MenuName = "about" | "investor" | null;
 type MobileTab = "menu" | "categories";
+
+// Inline TikTok icon component for completeness
+const TiktokIcon = ({ className = "w-3.5 h-3.5" }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 1 1-2.896-2.896c.244 0 .478.03.702.085V9.382a6.34 6.34 0 0 0-.702-.039 6.341 6.341 0 1 0 6.341 6.341V9.08a8.212 8.212 0 0 0 4.887 1.583V7.218a4.83 4.83 0 0 1-1.117-.532z" />
+  </svg>
+);
 
 function Dropdown({
   label,
   links,
-  isOpen,
-  onOpen,
-  onClose,
   pathname,
+  basePath,
 }: {
   label: string;
   links: NavLinkItem[];
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
   pathname: string;
+  basePath: string;
 }) {
-  const isDropdownActive = links.some(link => link.href === pathname);
+  const [open, setOpen] = useState(false);
+  const isDropdownActive =
+    pathname.startsWith(basePath) ||
+    links.some((link) => link.href === pathname);
 
   return (
-    <div className="relative h-full flex items-center" onMouseEnter={onOpen} onMouseLeave={onClose}>
+    <div
+      className="relative flex items-center"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
-        onClick={onOpen}
         type="button"
-        className={`h-full flex items-center gap-1 px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-colors bg-transparent border-0 cursor-pointer whitespace-nowrap ${isDropdownActive ? "text-[#64b6e8]" : "text-[#202020]"} hover:text-[#56aee4]`}
+        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all border-0 cursor-pointer whitespace-nowrap ${
+          isDropdownActive
+            ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
+            : "bg-transparent text-slate-700 hover:text-rose-600 hover:bg-rose-50"
+        }`}
       >
-        {label} <ChevronDown size={13} />
+        <span>{label}</span>
+        <ChevronDown
+          size={14}
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
       </button>
-      {isOpen && (
-        <div className="absolute left-0 top-[50px] w-[220px] py-2.5 bg-white border-0 shadow-[0_5px_13px_rgba(30,24,20,0.12)] z-50">
-          {links.map((link) => (
-            <Link
-              href={link.href}
-              key={link.title}
-              onClick={onClose}
-              className={`block px-5 py-2 text-xs lg:text-sm transition-colors ${pathname === link.href ? "text-[#64b6e8] bg-[#f8f8f8]" : "text-[#777]"} hover:text-[#56aee4] hover:bg-[#f8f8f8]`}
-            >
-              {link.title}
-            </Link>
-          ))}
+
+      {open && (
+        <div
+          className="absolute left-0 top-full pt-1 z-[200]"
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+        >
+          <div className="w-[260px] py-2 bg-white rounded-2xl border border-slate-100 shadow-[0_12px_32px_rgba(0,0,0,0.18)]">
+            <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider font-extrabold text-slate-400 border-b border-slate-100 mb-1">
+              {label}
+            </div>
+            <div className="max-h-[400px] overflow-y-auto">
+              {links.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    href={link.href}
+                    key={link.title}
+                    className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium transition-all mx-1 my-0.5 rounded-xl ${
+                      isActive
+                        ? "text-rose-600 bg-rose-50 font-bold"
+                        : "text-slate-600 hover:text-rose-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>{link.title}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -64,12 +117,10 @@ function Dropdown({
 export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
-  const [activeMenu, setActiveMenu] = useState<MenuName>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("categories");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const closeMenu = () => setActiveMenu(null);
   const closeDrawer = () => {
     setMobileOpen(false);
     setSearchQuery("");
@@ -88,55 +139,194 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="relative z-30 bg-[#fffdf9] border-b border-[#e8e3df]">
-      <div className="h-[62px] md:h-[51px] flex items-center justify-between md:justify-center max-w-[1240px] mx-auto px-5 md:px-2.5">
-        <Link href="/" className="md:hidden font-serif font-bold text-2xl text-[#8f174d] tracking-tighter" aria-label="Manola home">
-          manola
-        </Link>
-        <nav className="hidden md:flex items-center h-full gap-0" aria-label="Primary navigation">
-          <Link href="/" className={`h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-opacity whitespace-nowrap ${pathname === "/" ? "text-[#64b6e8]" : "text-[#202020] hover:text-[#56aee4]"}`}>
-            Home
-          </Link>
-          <Dropdown
-            label="About us"
-            links={aboutLinks}
-            isOpen={activeMenu === "about"}
-            onOpen={() => setActiveMenu("about")}
-            onClose={closeMenu}
-            pathname={pathname}
-          />
-          <Dropdown
-            label="Investor relations"
-            links={investorLinks}
-            isOpen={activeMenu === "investor"}
-            onOpen={() => setActiveMenu("investor")}
-            onClose={closeMenu}
-            pathname={pathname}
-          />
-          {primaryLinks.map((item) => (
-            <Link
-              href={item.href}
-              key={item.title}
-              className={`h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-colors whitespace-nowrap ${pathname === item.href ? "text-[#64b6e8]" : "text-[#202020]"} hover:text-[#56aee4]`}
+    <header className="relative z-30 bg-white">
+      {/* Top Announcement Bar */}
+      <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white text-xs py-2 px-4 shadow-sm">
+        <div className="max-w-[1280px] mx-auto flex items-center justify-between">
+          <div className="flex-1 flex items-center justify-center md:justify-start gap-2">
+            <Sparkles size={14} className="animate-pulse text-amber-200 hidden sm:inline-block" />
+            <span className="font-medium tracking-wide text-center md:text-left text-[11px] sm:text-xs">
+              Welcome To Perfume Chemical Industries PLC.
+            </span>
+          </div>
+
+          <div className="hidden md:flex items-center gap-4 text-white/90">
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="hover:text-white hover:scale-110 transition-all"
             >
-              {item.title}
-            </Link>
-          ))}
-        </nav>
-        <button
-          className="block md:hidden border-0 bg-transparent cursor-pointer text-[#493c36] p-1"
-          aria-label="Open navigation"
-          onClick={() => setMobileOpen(true)}
-          type="button"
+              <Facebook size={14} />
+            </a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="hover:text-white hover:scale-110 transition-all"
+            >
+              <Instagram size={14} />
+            </a>
+            <a
+              href="#"
+              aria-label="Youtube"
+              className="hover:text-white hover:scale-110 transition-all"
+            >
+              <Youtube size={14} />
+            </a>
+            <a
+              href="#"
+              aria-label="Tiktok"
+              className="hover:text-white hover:scale-110 transition-all"
+            >
+              <TiktokIcon className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Logo & Utility Header */}
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-3.5 flex items-center justify-between border-b border-slate-100 gap-4">
+        {/* Brand / Logo */}
+        <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-all">
+            <span className="font-serif font-black text-xl tracking-tighter">M</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-serif font-bold text-xl md:text-2xl text-rose-700 tracking-tight group-hover:text-rose-600 transition-colors">
+              ম্যানোলা
+            </span>
+            <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase -mt-0.5">
+              অমলিন সুরভি অনন্যা
+            </span>
+          </div>
+        </Link>
+
+        {/* Center Search Input (Desktop) */}
+        <form
+          onSubmit={handleSearchSubmit}
+          className="hidden md:flex flex-1 max-w-md mx-6 relative"
         >
-          <Menu size={24} />
-        </button>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search products, reports, categories..."
+            className="w-full bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 focus:border-rose-400 focus:ring-4 focus:ring-rose-100/60 rounded-full py-2 pl-4 pr-10 text-xs text-slate-800 placeholder:text-slate-400 transition-all outline-none"
+          />
+          <button
+            type="submit"
+            aria-label="Search"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-all shadow-sm cursor-pointer"
+          >
+            <Search size={13} />
+          </button>
+        </form>
+
+        {/* Right Actions: Login/Register, Wishlist, Cart */}
+        <div className="flex items-center gap-3 lg:gap-5">
+          <Link
+            href="/login"
+            className="hidden sm:flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-rose-600 transition-colors"
+          >
+            <User size={16} className="text-rose-500" />
+            <span>Login / Register</span>
+          </Link>
+
+          <div className="h-4 w-px bg-slate-200 hidden sm:block" />
+
+          {/* Wishlist */}
+          <Link
+            href="/wishlist"
+            className="relative p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all"
+            aria-label="Wishlist"
+          >
+            <Heart size={20} />
+            <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+              0
+            </span>
+          </Link>
+
+          {/* Cart Capsule Widget */}
+          <Link
+            href="/shop"
+            className="flex items-center gap-2 bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-500 hover:to-pink-600 border border-rose-200/80 text-rose-700 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm group cursor-pointer"
+          >
+            <div className="relative">
+              <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
+              <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
+                0
+              </span>
+            </div>
+            <span className="ml-1 tracking-tight font-extrabold">0.00৳</span>
+          </Link>
+
+          {/* Mobile Drawer Trigger */}
+          <button
+            className="block md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+            aria-label="Open navigation"
+            onClick={() => setMobileOpen(true)}
+            type="button"
+          >
+            <Menu size={22} />
+          </button>
+        </div>
+      </div>
+
+      {/* Primary Sticky Nav Bar */}
+      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs overflow-visible">
+        <div className="max-w-[1280px] mx-auto px-4 overflow-visible">
+          <nav
+            className="hidden md:flex items-center justify-center gap-1 py-1.5 overflow-visible"
+            aria-label="Primary navigation"
+          >
+            <Link
+              href="/"
+              className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${
+                pathname === "/"
+                  ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
+                  : "text-slate-700 hover:text-rose-600 hover:bg-rose-50"
+              }`}
+            >
+              Home
+            </Link>
+
+            <Dropdown
+              label="About us"
+              links={aboutLinks}
+              pathname={pathname}
+              basePath="/about"
+            />
+
+            <Dropdown
+              label="Investor relations"
+              links={investorLinks}
+              pathname={pathname}
+              basePath="/investor-relations"
+            />
+
+            {primaryLinks.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  href={item.href}
+                  key={item.title}
+                  className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${
+                    isActive
+                      ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
+                      : "text-slate-700 hover:text-rose-600 hover:bg-rose-50"
+                  }`}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
       </div>
 
       {/* Drawer Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-[#19110f]/35 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 transition-opacity duration-300"
           onClick={closeDrawer}
           aria-label="Close navigation"
           role="button"
@@ -146,43 +336,48 @@ export function SiteHeader() {
 
       {/* Mobile Drawer Panel */}
       <aside
-        className={`fixed left-0 top-0 bottom-0 w-[min(86vw,355px)] bg-white z-50 flex flex-col shadow-[12px_0_32px_rgba(24,17,14,0.14)] transition-transform duration-350 ease-out overflow-y-auto ${
+        className={`fixed left-0 top-0 bottom-0 w-[min(86vw,360px)] bg-white z-50 flex flex-col shadow-2xl transition-transform duration-300 ease-out overflow-y-auto ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-hidden={!mobileOpen}
       >
-        <form onSubmit={handleSearchSubmit} className="flex h-[69px] items-center gap-3 px-5 border-b border-[#e7e3e1] text-[#6c6865]">
+        {/* Mobile Search Header */}
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex h-[64px] items-center gap-3 px-4 border-b border-slate-100 bg-slate-50/50"
+        >
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for products or pages"
+            placeholder="Search products or pages..."
             aria-label="Search"
-            className="min-w-0 flex-1 border-0 outline-none text-xs text-[#433b37] placeholder:text-[#6f6966] placeholder:font-semibold bg-transparent"
+            className="min-w-0 flex-1 border-0 outline-none text-xs text-slate-800 placeholder:text-slate-400 font-medium bg-transparent"
           />
-          <button type="submit" aria-label="Perform search" className="grid place-items-center p-1.5 border-0 bg-transparent text-[#4d4946] cursor-pointer">
-            <Search size={20} />
+          <button
+            type="submit"
+            aria-label="Perform search"
+            className="grid place-items-center p-2 text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-full transition-colors cursor-pointer"
+          >
+            <Search size={16} />
           </button>
-          {searchQuery ? (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              aria-label="Clear search"
-              className="grid place-items-center p-1.5 border-0 bg-transparent text-[#4d4946] cursor-pointer"
-            >
-              <X size={18} />
-            </button>
-          ) : (
-            <button type="button" onClick={closeDrawer} aria-label="Close navigation" className="grid place-items-center p-1.5 border-0 bg-transparent text-[#4d4946] cursor-pointer">
-              <X size={20} />
-            </button>
-          )}
-        </form>
-
-        <div className="grid grid-cols-2 h-[52px] bg-[#f9f9f9] border-b border-[#ddd]">
           <button
             type="button"
-            className={`border-0 border-r border-[#eee] bg-transparent text-[#8e8986] uppercase text-xs font-medium cursor-pointer transition-colors ${
-              mobileTab === "menu" ? "text-[#17202a] bg-white border-b-2 border-b-[#66b8ec]" : ""
+            onClick={closeDrawer}
+            aria-label="Close navigation"
+            className="grid place-items-center p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
+          >
+            <X size={18} />
+          </button>
+        </form>
+
+        {/* Mobile Navigation Tabs */}
+        <div className="grid grid-cols-2 h-[48px] bg-slate-50 border-b border-slate-200/80">
+          <button
+            type="button"
+            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
+              mobileTab === "menu"
+                ? "text-rose-600 bg-white border-b-2 border-b-rose-600 shadow-2xs"
+                : "text-slate-500 hover:text-slate-800"
             }`}
             onClick={() => setMobileTab("menu")}
           >
@@ -190,8 +385,10 @@ export function SiteHeader() {
           </button>
           <button
             type="button"
-            className={`border-0 bg-transparent text-[#8e8986] uppercase text-xs font-medium cursor-pointer transition-colors ${
-              mobileTab === "categories" ? "text-[#17202a] bg-white border-b-2 border-b-[#66b8ec]" : ""
+            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
+              mobileTab === "categories"
+                ? "text-rose-600 bg-white border-b-2 border-b-rose-600 shadow-2xs"
+                : "text-slate-500 hover:text-slate-800"
             }`}
             onClick={() => setMobileTab("categories")}
           >
@@ -200,29 +397,43 @@ export function SiteHeader() {
         </div>
 
         {mobileTab === "menu" ? (
-          <nav className="flex flex-col" aria-label="Mobile drawer links">
+          <nav className="flex flex-col py-2" aria-label="Mobile drawer links">
             <Link
               href="/"
               onClick={closeDrawer}
-              className={`flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors ${pathname === "/" ? "text-[#8f174d]" : "text-[#16202b]"}`}
+              className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${
+                pathname === "/"
+                  ? "text-rose-600 bg-rose-50/60 font-extrabold"
+                  : "text-slate-700 hover:bg-slate-50 hover:text-rose-600"
+              }`}
             >
               Home
             </Link>
             {filteredMenuLinks.length === 0 ? (
-              <div className="p-6 text-xs text-[#88827e] text-center italic">
+              <div className="p-6 text-xs text-slate-400 text-center italic">
                 No links matching &quot;{searchQuery}&quot;
               </div>
             ) : (
-              filteredMenuLinks.map((item) => (
-                <Link
-                  href={item.href}
-                  onClick={closeDrawer}
-                  key={item.title}
-                  className={`flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors ${pathname === item.href ? "text-[#8f174d]" : "text-[#16202b]"}`}
-                >
-                  {item.title}
-                </Link>
-              ))
+              filteredMenuLinks.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    href={item.href}
+                    onClick={closeDrawer}
+                    key={item.title}
+                    className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${
+                      isActive
+                        ? "text-rose-600 bg-rose-50/60 font-extrabold"
+                        : "text-slate-700 hover:bg-slate-50 hover:text-rose-600"
+                    }`}
+                  >
+                    <span>{item.title}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
+                    )}
+                  </Link>
+                );
+              })
             )}
           </nav>
         ) : (
