@@ -2,7 +2,7 @@
 
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import {
   aboutLinks,
@@ -23,19 +23,23 @@ function Dropdown({
   isOpen,
   onOpen,
   onClose,
+  pathname,
 }: {
   label: string;
   links: NavLinkItem[];
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  pathname: string;
 }) {
+  const isDropdownActive = links.some(link => link.href === pathname);
+
   return (
     <div className="relative h-full flex items-center" onMouseEnter={onOpen} onMouseLeave={onClose}>
       <button
         onClick={onOpen}
         type="button"
-        className="h-full flex items-center gap-1 px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold text-[#202020] hover:text-[#56aee4] transition-colors bg-transparent border-0 cursor-pointer whitespace-nowrap"
+        className={`h-full flex items-center gap-1 px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-colors bg-transparent border-0 cursor-pointer whitespace-nowrap ${isDropdownActive ? "text-[#64b6e8]" : "text-[#202020]"} hover:text-[#56aee4]`}
       >
         {label} <ChevronDown size={13} />
       </button>
@@ -46,7 +50,7 @@ function Dropdown({
               href={link.href}
               key={link.title}
               onClick={onClose}
-              className="block px-5 py-2 text-xs lg:text-sm text-[#777] hover:text-[#56aee4] hover:bg-[#f8f8f8] transition-colors"
+              className={`block px-5 py-2 text-xs lg:text-sm transition-colors ${pathname === link.href ? "text-[#64b6e8] bg-[#f8f8f8]" : "text-[#777]"} hover:text-[#56aee4] hover:bg-[#f8f8f8]`}
             >
               {link.title}
             </Link>
@@ -59,6 +63,7 @@ function Dropdown({
 
 export function SiteHeader() {
   const router = useRouter();
+  const pathname = usePathname();
   const [activeMenu, setActiveMenu] = useState<MenuName>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("categories");
@@ -89,7 +94,7 @@ export function SiteHeader() {
           manola
         </Link>
         <nav className="hidden md:flex items-center h-full gap-0" aria-label="Primary navigation">
-          <Link href="/" className="h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold text-[#64b6e8] hover:opacity-80 transition-opacity whitespace-nowrap">
+          <Link href="/" className={`h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-opacity whitespace-nowrap ${pathname === "/" ? "text-[#64b6e8]" : "text-[#202020] hover:text-[#56aee4]"}`}>
             Home
           </Link>
           <Dropdown
@@ -98,6 +103,7 @@ export function SiteHeader() {
             isOpen={activeMenu === "about"}
             onOpen={() => setActiveMenu("about")}
             onClose={closeMenu}
+            pathname={pathname}
           />
           <Dropdown
             label="Investor relations"
@@ -105,12 +111,13 @@ export function SiteHeader() {
             isOpen={activeMenu === "investor"}
             onOpen={() => setActiveMenu("investor")}
             onClose={closeMenu}
+            pathname={pathname}
           />
           {primaryLinks.map((item) => (
             <Link
               href={item.href}
               key={item.title}
-              className="h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold text-[#202020] hover:text-[#56aee4] transition-colors whitespace-nowrap"
+              className={`h-full flex items-center px-2 lg:px-3 text-xs lg:text-sm uppercase font-bold transition-colors whitespace-nowrap ${pathname === item.href ? "text-[#64b6e8]" : "text-[#202020]"} hover:text-[#56aee4]`}
             >
               {item.title}
             </Link>
@@ -197,7 +204,7 @@ export function SiteHeader() {
             <Link
               href="/"
               onClick={closeDrawer}
-              className="flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-[#16202b] text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors"
+              className={`flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors ${pathname === "/" ? "text-[#8f174d]" : "text-[#16202b]"}`}
             >
               Home
             </Link>
@@ -211,7 +218,7 @@ export function SiteHeader() {
                   href={item.href}
                   onClick={closeDrawer}
                   key={item.title}
-                  className="flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-[#16202b] text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors"
+                  className={`flex items-center justify-between min-h-[50px] px-5 border-b border-[#e5e2df] bg-white text-xs font-semibold uppercase hover:bg-[#faf8f6] hover:text-[#8f174d] transition-colors ${pathname === item.href ? "text-[#8f174d]" : "text-[#16202b]"}`}
                 >
                   {item.title}
                 </Link>
