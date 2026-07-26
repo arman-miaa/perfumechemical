@@ -120,6 +120,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  button, select, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], a {
+    cursor: pointer;
+  }
 }
 
 
