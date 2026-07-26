@@ -85,8 +85,9 @@ export function FloatingActions() {
             </div>
           </div>
           <button 
+            type="button"
             onClick={() => setIsChatOpen(false)}
-            className="text-pink-200 hover:text-white transition-colors"
+            className="text-pink-200 hover:text-white transition-colors cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -117,20 +118,21 @@ export function FloatingActions() {
             />
             <button 
               type="submit"
-              disabled={!inputValue.trim()}
-              className="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center shrink-0 hover:bg-pink-500 disabled:opacity-50 disabled:hover:bg-pink-600 transition-colors"
+              className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                inputValue.trim() ? "bg-pink-600 text-white hover:bg-pink-500 cursor-pointer" : "bg-pink-600/50 text-white/70 cursor-default"
+              }`}
             >
-              <Send size={16} className="-ml-0.5" />
+              <Send size={16} className="-ml-0.5 pointer-events-none" />
             </button>
           </form>
         </div>
       </div>
 
       {/* Floating Buttons */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4 pointer-events-none">
         <button
           onClick={scrollToTop}
-          className={`w-12 h-12 bg-stone-900 text-white rounded-full flex items-center justify-center shadow-lg shadow-stone-900/20 hover:bg-pink-700 transition-all duration-300 cursor-pointer ${
+          className={`w-12 h-12 bg-stone-900 text-white rounded-full flex items-center justify-center shadow-lg shadow-stone-900/20 hover:bg-pink-700 transition-all duration-300 cursor-pointer pointer-events-auto ${
             showTopBtn && !isChatOpen
               ? "translate-y-0 opacity-100 animate-[bounce_2s_infinite]"
               : "translate-y-10 opacity-0 pointer-events-none"
@@ -142,7 +144,7 @@ export function FloatingActions() {
 
         <button
           onClick={() => setIsChatOpen((prev) => !prev)}
-          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-pink-900/30 transition-all duration-300 cursor-pointer relative group ${
+          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-pink-900/30 transition-all duration-300 cursor-pointer relative group pointer-events-auto ${
             isChatOpen ? "bg-stone-800 text-white hover:bg-stone-700" : "bg-pink-600 text-white hover:bg-pink-500 hover:scale-110"
           }`}
           aria-label="Toggle Chat"
