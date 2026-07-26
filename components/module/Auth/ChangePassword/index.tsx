@@ -108,7 +108,6 @@ export default function ChangePassword() {
   const isFormValid = form.formState.isValid && !isSamePassword;
 
   return (
-  return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-white">
       <div className="w-full max-w-md bg-white rounded-3xl border border-stone-200/80 p-6 sm:p-8">
         <div className="text-center mb-8">
