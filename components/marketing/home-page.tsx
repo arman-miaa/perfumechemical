@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -17,7 +17,11 @@ import {
   SlidersHorizontal,
   ChevronRight,
   Quote,
+  Clock,
+  Crown,
+  BookOpen,
 } from "lucide-react";
+import Marquee from "react-fast-marquee";
 import { HeroCarousel } from "./hero-carousel";
 import { SectionHeading } from "./section-heading";
 import { products } from "@/src/data/mockProducts";
@@ -48,7 +52,7 @@ const categoryCards = [
   {
     title: "Specialty Chemicals",
     description: "Industry-grade pure formulations",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80",
+    image: "/images/specialty_chemicals.png",
     href: "/portfolio",
     tag: "B2B Solutions",
   },
@@ -79,12 +83,64 @@ const testimonials = [
   },
 ];
 
+const articles = [
+  {
+    title: "The Signature Secret: Decoding True Craftsmanship",
+    date: "July 24, 2026",
+    category: "Fragrance",
+    image: "/images/article_1.png",
+    readTime: "5 min read",
+  },
+  {
+    title: "Daily Rituals: How to Maximize Skin Hydration",
+    date: "July 18, 2026",
+    category: "Skin Care",
+    image: "/images/article_2.png",
+    readTime: "4 min read",
+  },
+  {
+    title: "Healthy Home: Safe Formulas for Family Living",
+    date: "July 12, 2026",
+    category: "Home Care",
+    image: "/images/article_3.png",
+    readTime: "6 min read",
+  },
+];
+
 export function HomePage() {
   const [productTab, setProductTab] = useState("all");
 
   // Scent Finder State
   const [quizMood, setQuizMood] = useState("daily");
   const [quizNote, setQuizNote] = useState("floral");
+
+  // Countdown Timer State
+  const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        let { hours, minutes, seconds } = prev;
+        if (seconds > 0) {
+          seconds--;
+        } else {
+          seconds = 59;
+          if (minutes > 0) {
+            minutes--;
+          } else {
+            minutes = 59;
+            if (hours > 0) {
+              hours--;
+            } else {
+              hours = 23; // Loop back
+            }
+          }
+        }
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const filteredProducts =
     productTab === "all"
@@ -95,6 +151,18 @@ export function HomePage() {
     <main className="bg-[#fffdf9] text-stone-800">
       {/* Hero Carousel */}
       <HeroCarousel />
+
+      {/* Infinite Value Marquee */}
+      <div className="bg-pink-700 text-white py-3 border-y border-pink-800 shadow-inner overflow-hidden">
+        <Marquee speed={40} gradient={false} autoFill={true}>
+          <div className="flex items-center mx-4 gap-8">
+            <span className="text-xs uppercase font-extrabold tracking-[0.2em] flex items-center gap-2"><Sparkles size={14} className="text-pink-300"/> 100% ORGANIC FORMULATIONS</span>
+            <span className="text-xs uppercase font-extrabold tracking-[0.2em] flex items-center gap-2"><Sparkles size={14} className="text-pink-300"/> DERMATOLOGIST TESTED</span>
+            <span className="text-xs uppercase font-extrabold tracking-[0.2em] flex items-center gap-2"><Sparkles size={14} className="text-pink-300"/> PREMIUM GRADE QUALITY</span>
+            <span className="text-xs uppercase font-extrabold tracking-[0.2em] flex items-center gap-2"><Sparkles size={14} className="text-pink-300"/> ISO 9001 CERTIFIED</span>
+          </div>
+        </Marquee>
+      </div>
 
       {/* Trust & Guarantee Strip */}
       <section className="bg-gradient-to-r from-stone-900 via-pink-950 to-stone-900 text-stone-200 py-6 px-4">
@@ -162,6 +230,62 @@ export function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Flash Sale / Combo Offer Section */}
+      <section className="bg-stone-900 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-500 via-transparent to-transparent" />
+        
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+          
+          <div className="lg:w-1/2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold uppercase tracking-wider mb-6 border border-pink-500/30">
+              <Clock size={14} /> Limited Time Only
+            </div>
+            <h2 className="font-serif text-3xl sm:text-5xl font-medium tracking-tight text-white mb-4">
+              Signature Combo Offer
+            </h2>
+            <p className="text-stone-400 text-lg mb-8 max-w-md leading-relaxed">
+              Experience the perfect layering routine. Get the Velvet Rose Eau de Parfum & Silk Bloom Body Lotion together and save 25%.
+            </p>
+            
+            <div className="flex gap-4 mb-8">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center min-w-[80px]">
+                <span className="block text-3xl font-serif text-white font-medium">{String(timeLeft.hours).padStart(2, '0')}</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-pink-300">Hours</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center min-w-[80px]">
+                <span className="block text-3xl font-serif text-white font-medium">{String(timeLeft.minutes).padStart(2, '0')}</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-pink-300">Minutes</span>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 text-center min-w-[80px]">
+                <span className="block text-3xl font-serif text-white font-medium">{String(timeLeft.seconds).padStart(2, '0')}</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-pink-300">Seconds</span>
+              </div>
+            </div>
+
+            <Link
+              href="/product"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-pink-700 hover:bg-pink-600 text-white text-sm font-extrabold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(190,24,93,0.3)] hover:shadow-[0_0_30px_rgba(190,24,93,0.5)]"
+            >
+              Shop The Combo <ArrowRight size={18} />
+            </Link>
+          </div>
+
+          <div className="lg:w-1/2 relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-pink-600/30 blur-[100px] rounded-full" />
+            <img 
+              src="/images/perfume_hero.png" 
+              alt="Combo Offer" 
+              className="relative z-10 w-full max-w-md mx-auto drop-shadow-2xl"
+            />
+            <div className="absolute top-4 right-10 bg-yellow-400 text-stone-900 rounded-full w-24 h-24 flex items-center justify-center flex-col shadow-xl rotate-12 z-20 border-4 border-stone-900">
+              <span className="text-sm font-bold leading-none">SAVE</span>
+              <span className="text-3xl font-black font-serif leading-none">25%</span>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -288,7 +412,7 @@ export function HomePage() {
             
             <div className="flex items-center gap-5 my-4">
               <img
-                src={quizNote === "woody" ? "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=300&q=80" : quizNote === "citrus" ? "/images/body_care.png" : "/images/perfume_hero.png"}
+                src={quizNote === "woody" ? "/images/quiz_woody.png" : quizNote === "citrus" ? "/images/body_care.png" : "/images/perfume_hero.png"}
                 alt="Product match"
                 className="w-24 h-24 rounded-xl object-cover border border-stone-700 shrink-0 shadow-md"
               />
@@ -331,7 +455,7 @@ export function HomePage() {
           <div className="relative">
             <div className="relative h-[460px] rounded-3xl overflow-hidden shadow-2xl border border-stone-200">
               <img
-                src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1000&q=85"
+                src="/images/brand_excellence.png"
                 alt="Formulation excellence"
                 className="w-full h-full object-cover"
               />
@@ -429,6 +553,110 @@ export function HomePage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Manola Loyalty Club Section */}
+      <section className="py-24 border-y border-stone-200/80 bg-white relative overflow-hidden">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
+          <div className="bg-pink-50 rounded-3xl overflow-hidden border border-pink-100 flex flex-col md:flex-row items-center relative">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#be185d 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+            
+            <div className="md:w-1/2 p-10 sm:p-16 relative z-10">
+              <div className="w-12 h-12 bg-pink-200 rounded-full flex items-center justify-center text-pink-700 mb-6">
+                <Crown size={24} />
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-stone-900 mb-4">
+                Introducing the Manola Loyalty Club
+              </h2>
+              <p className="text-stone-600 text-base leading-relaxed mb-8 max-w-md">
+                Unlock exclusive savings, early access to new collections, and free shipping on all orders. Join our inner circle today and elevate your self-care routine.
+              </p>
+              <ul className="space-y-3 mb-10">
+                <li className="flex items-center gap-3 text-sm font-semibold text-stone-700">
+                  <Check size={18} className="text-pink-600" /> Earn points on every purchase
+                </li>
+                <li className="flex items-center gap-3 text-sm font-semibold text-stone-700">
+                  <Check size={18} className="text-pink-600" /> Exclusive member-only discounts
+                </li>
+                <li className="flex items-center gap-3 text-sm font-semibold text-stone-700">
+                  <Check size={18} className="text-pink-600" /> Birthday surprises and gifts
+                </li>
+              </ul>
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-stone-900 hover:bg-pink-800 text-white text-sm font-extrabold uppercase tracking-wider transition-all shadow-lg"
+              >
+                Join For Free <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="md:w-1/2 relative p-10 flex items-center justify-center min-h-[400px]">
+              {/* 3D Floating Cards Effect */}
+              <div className="relative w-full max-w-sm aspect-[1.6/1] rounded-2xl bg-gradient-to-br from-pink-600 to-rose-900 p-6 text-white shadow-2xl shadow-pink-900/30 transform -rotate-6 transition-transform hover:rotate-0 duration-500 z-20">
+                <div className="flex justify-between items-start">
+                  <span className="font-serif text-2xl font-black">Manola</span>
+                  <Crown size={24} className="text-pink-300" />
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-pink-200 mb-1">Cardholder</p>
+                      <p className="font-bold tracking-wider">MEMBER NAME</p>
+                    </div>
+                    <span className="text-xl font-medium opacity-80">0000 0000</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm aspect-[1.6/1] rounded-2xl bg-stone-800 p-6 shadow-xl transform rotate-3 z-10 opacity-70">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Journal / Articles Section */}
+      <section className="bg-[#fffdf9] py-24">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-14">
+            <div>
+              <span className="text-pink-700 text-xs uppercase font-extrabold tracking-widest">
+                The Journal
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-stone-900 mt-2">
+                Latest Insights & Advice
+              </h2>
+            </div>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-stone-900 hover:text-pink-700 transition-colors group"
+            >
+              View All Articles <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {articles.map((article, index) => (
+              <Link href="/blog" key={index} className="group block">
+                <div className="rounded-2xl overflow-hidden aspect-[4/3] mb-5">
+                  <img 
+                    src={article.image} 
+                    alt={article.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
+                  <span className="text-pink-700">{article.category}</span>
+                  <div className="flex items-center gap-1"><BookOpen size={14}/> {article.readTime}</div>
+                </div>
+                <h3 className="font-serif text-xl sm:text-2xl font-medium text-stone-900 leading-snug group-hover:text-pink-700 transition-colors">
+                  {article.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
