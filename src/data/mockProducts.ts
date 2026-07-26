@@ -29,7 +29,7 @@ export const products: Product[] = [
     image: "/images/perfume_hero.png",
     images: [
       "/images/perfume_hero.png",
-      "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80",
+      "/images/article_1.png",
     ],
     badge: "Bestseller",
     description: "A romantic bouquet of damask rose, vanilla, and sweet nectar. Our Velvet Rose formulation is designed for lasting allure, ensuring you leave a memorable impression wherever you go. Perfectly balanced for day and night wear.",
@@ -53,7 +53,7 @@ export const products: Product[] = [
     image: "/images/body_care.png",
     images: [
       "/images/body_care.png",
-      "https://images.unsplash.com/photo-1608248597261-8332586b9a84?auto=format&fit=crop&w=800&q=80",
+      "/images/article_2.png",
     ],
     badge: "New Formula",
     description: "Experience deep hydration with our Silk Bloom Body Lotion. Infused with refreshing botanical extracts and Vitamin E, it leaves your skin silky soft without any greasy residue.",
@@ -77,7 +77,7 @@ export const products: Product[] = [
     image: "/images/home_care.png",
     images: [
       "/images/home_care.png",
-      "https://images.unsplash.com/photo-1584820927508-0138fe76d729?auto=format&fit=crop&w=800&q=80",
+      "/images/article_3.png",
     ],
     badge: "Eco Pick",
     description: "A powerful, eco-friendly surface cleaner that removes tough stains and grease while leaving a refreshing natural botanical scent behind. Safe for most household surfaces.",
@@ -98,9 +98,9 @@ export const products: Product[] = [
     priceRaw: 3200,
     rating: 5.0,
     reviews: 84,
-    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
+    image: "/images/quiz_woody.png",
     images: [
-      "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80",
+      "/images/quiz_woody.png",
       "/images/perfume_hero.png",
     ],
     badge: "Luxury Edition",
@@ -122,9 +122,9 @@ export const products: Product[] = [
     priceRaw: 680,
     rating: 4.7,
     reviews: 112,
-    image: "https://images.unsplash.com/photo-1608248597261-8332586b9a84?auto=format&fit=crop&w=600&q=80",
+    image: "/images/article_2.png",
     images: [
-      "https://images.unsplash.com/photo-1608248597261-8332586b9a84?auto=format&fit=crop&w=800&q=80",
+      "/images/article_2.png",
       "/images/body_care.png",
     ],
     badge: "Organic",
@@ -147,9 +147,9 @@ export const products: Product[] = [
     priceRaw: 1150,
     rating: 4.8,
     reviews: 73,
-    image: "https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=600&q=80",
+    image: "/images/article_3.png",
     images: [
-      "https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=800&q=80",
+      "/images/article_3.png",
       "/images/home_care.png",
     ],
     badge: "Popular",
