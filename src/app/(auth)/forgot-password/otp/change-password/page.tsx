@@ -68,116 +68,112 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
-      {/* Left Panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative">
-        <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/banner_22.jpg')",
-          }}
-        ></div>
-      </div>
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-3xl border border-stone-200/80 p-8 sm:p-10">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-stone-900 mb-2 tracking-tight">
+            Change Password
+          </h2>
+          <p className="text-sm text-stone-500">
+            Create a new secure password for {email}
+          </p>
+        </div>
 
-      {/* Right Panel */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-white">
-        <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
-          <div className="mb-8 text-center">
-            <h2 className="text-[40px] font-bold text-gray-800 mb-2">
-              Change Password
-            </h2>
-          </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* New Password */}
+            <FormField
+              control={form.control}
+              name="newPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-stone-700 font-bold text-xs uppercase tracking-wider">
+                    New Password
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type={showNewPassword ? "text" : "password"}
+                        placeholder="Enter new password"
+                        {...field}
+                        className="py-6 pr-12 rounded-xl transition-all bg-stone-50 border-stone-200 focus-visible:ring-pink-200"
+                      />
+                      <button
+                        type="button"
+                        onClick={toggleNewPassword}
+                        className="absolute inset-y-0 right-4 flex items-center text-stone-400 hover:text-pink-600 transition-colors cursor-pointer"
+                      >
+                        {showNewPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* New Password */}
-              <FormField
-                control={form.control}
-                name="newPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-700 font-medium">
-                      New Password
-                    </FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          type={showNewPassword ? "text" : "password"}
-                          placeholder="Enter new password"
-                          {...field}
-                          className="py-6 pr-12 rounded-2xl"
-                        />
-                        <button
-                          type="button"
-                          onClick={toggleNewPassword}
-                          className="absolute inset-y-0 right-4 flex items-center text-gray-500"
-                        >
-                          {showNewPassword ? (
-                            <EyeOff size={20} />
-                          ) : (
-                            <Eye size={20} />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            {/* Confirm Password */}
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-stone-700 font-bold text-xs uppercase tracking-wider">
+                    Confirm Password
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Re-enter new password"
+                        {...field}
+                        className={`py-6 pr-12 rounded-xl transition-all bg-stone-50 border-stone-200 focus-visible:ring-pink-200 ${
+                          !isPasswordMatch && watchConfirmPassword
+                            ? "border-red-300 focus-visible:ring-red-200"
+                            : ""
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={toggleConfirmPassword}
+                        className="absolute inset-y-0 right-4 flex items-center text-stone-400 hover:text-pink-600 transition-colors cursor-pointer"
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff size={18} />
+                        ) : (
+                          <Eye size={18} />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                  
+                  {/* Show password mismatch error */}
+                  {!isPasswordMatch && watchConfirmPassword && (
+                    <p className="text-sm text-red-500 font-medium mt-1">
+                      Passwords do not match.
+                    </p>
+                  )}
+                </FormItem>
+              )}
+            />
 
-              {/* Confirm Password */}
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-700 font-medium">
-                      Confirm Password
-                    </FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          type={showConfirmPassword ? "text" : "password"}
-                          placeholder="Re-enter new password"
-                          {...field}
-                          className="py-6 pr-12 rounded-2xl"
-                        />
-                        <button
-                          type="button"
-                          onClick={toggleConfirmPassword}
-                          className="absolute inset-y-0 right-4 flex items-center text-gray-500"
-                        >
-                          {showConfirmPassword ? (
-                            <EyeOff size={20} />
-                          ) : (
-                            <Eye size={20} />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
+            <div className="pt-4">
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 rounded-lg font-medium transition-colors"
+                className="w-full py-6 text-xs uppercase font-extrabold tracking-wider bg-stone-900 hover:bg-pink-800 disabled:bg-stone-400 disabled:cursor-not-allowed text-white rounded-full shadow-lg transition-all cursor-pointer"
                 disabled={isSubmitting || !isPasswordMatch}
               >
-                Continue
+                {isSubmitting ? "Updating..." : "Change Password"}
               </Button>
-
-              {/* Show password mismatch error */}
-              {!isPasswordMatch && watchConfirmPassword && (
-                <p className="text-sm text-red-500 font-medium text-center -mt-4">
-                  Passwords do not match.
-                </p>
-              )}
-            </form>
-          </Form>
-        </div>
+            </div>
+          </form>
+        </Form>
       </div>
     </div>
   );

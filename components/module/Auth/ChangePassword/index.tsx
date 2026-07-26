@@ -108,13 +108,14 @@ export default function ChangePassword() {
   const isFormValid = form.formState.isValid && !isSamePassword;
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-gray-50">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-6 sm:p-8">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-white">
+      <div className="w-full max-w-md bg-white rounded-3xl border border-stone-200/80 p-6 sm:p-8">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-stone-900 mb-2 tracking-tight">
             Change Password
           </h2>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-stone-500">
             Create a new secure password for your account
           </p>
         </div>
@@ -126,7 +127,7 @@ export default function ChangePassword() {
               name="currentPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
+                  <FormLabel className="text-stone-700 font-bold text-xs uppercase tracking-wider">
                     Current Password
                   </FormLabel>
                   <FormControl>
@@ -135,17 +136,17 @@ export default function ChangePassword() {
                         type={showCurrentPassword ? "text" : "password"}
                         placeholder="Enter your current password"
                         {...field}
-                        className={`py-3 pr-12 rounded-xl transition-colors ${
+                        className={`py-6 pr-12 rounded-xl transition-all bg-stone-50 border-stone-200 focus-visible:ring-pink-200 ${
                           errors.currentPassword
                             ? "border-red-300 focus:border-red-500"
-                            : "border-gray-200 focus:border-blue-500"
+                            : "border-stone-200"
                         }`}
                         autoComplete="current-password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowCurrentPassword((prev) => !prev)}
-                        className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                        className="absolute inset-y-0 right-3 flex items-center text-stone-400 hover:text-pink-600 transition-colors cursor-pointer"
                         tabIndex={-1}
                       >
                         {showCurrentPassword ? (
@@ -166,7 +167,7 @@ export default function ChangePassword() {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
+                  <FormLabel className="text-stone-700 font-bold text-xs uppercase tracking-wider">
                     New Password
                   </FormLabel>
                   <FormControl>
@@ -175,19 +176,19 @@ export default function ChangePassword() {
                         type={showNewPassword ? "text" : "password"}
                         placeholder="Enter your new password"
                         {...field}
-                        className={`py-3 pr-12 rounded-xl transition-colors ${
+                        className={`py-6 pr-12 rounded-xl transition-all bg-stone-50 border-stone-200 focus-visible:ring-pink-200 ${
                           errors.newPassword || isSamePassword
-                            ? "border-red-300 focus:border-red-500"
+                            ? "border-red-300 focus-visible:ring-red-200"
                             : watchNewPassword && !errors.newPassword
-                              ? "border-green-300 focus:border-green-500"
-                              : "border-gray-200 focus:border-blue-500"
+                              ? "border-green-300 focus-visible:ring-green-200"
+                              : "border-stone-200"
                         }`}
                         autoComplete="new-password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowNewPassword((prev) => !prev)}
-                        className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                        className="absolute inset-y-0 right-3 flex items-center text-stone-400 hover:text-pink-600 transition-colors cursor-pointer"
                         tabIndex={-1}
                       >
                         {showNewPassword ? (
@@ -213,7 +214,7 @@ export default function ChangePassword() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium text-gray-700">
+                  <FormLabel className="text-stone-700 font-bold text-xs uppercase tracking-wider">
                     Confirm New Password
                   </FormLabel>
                   <FormControl>
@@ -222,20 +223,20 @@ export default function ChangePassword() {
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Re-enter your new password"
                         {...field}
-                        className={`py-3 pr-12 rounded-xl transition-colors ${
+                        className={`py-6 pr-12 rounded-xl transition-all bg-stone-50 border-stone-200 focus-visible:ring-pink-200 ${
                           errors.confirmPassword
-                            ? "border-red-300 focus:border-red-500"
+                            ? "border-red-300 focus-visible:ring-red-200"
                             : watchConfirmPassword &&
                                 watchNewPassword === watchConfirmPassword
-                              ? "border-green-300 focus:border-green-500"
-                              : "border-gray-200 focus:border-blue-500"
+                              ? "border-green-300 focus-visible:ring-green-200"
+                              : "border-stone-200"
                         }`}
                         autoComplete="new-password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                        className="absolute inset-y-0 right-3 flex items-center text-stone-400 hover:text-pink-600 transition-colors cursor-pointer"
                         tabIndex={-1}
                       >
                         {showConfirmPassword ? (
@@ -251,7 +252,7 @@ export default function ChangePassword() {
                     watchNewPassword === watchConfirmPassword && (
                       <div className="flex items-center gap-1 mt-1">
                         <CheckCircle2 className="w-4 h-4 text-green-500" />
-                        <span className="text-sm text-green-600">
+                        <span className="text-sm text-green-600 font-medium">
                           Passwords match
                         </span>
                       </div>
@@ -260,14 +261,14 @@ export default function ChangePassword() {
               )}
             />
 
-            <div className="pt-2">
+            <div className="pt-4">
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl font-semibold text-white text-base py-3 transition-colors"
+                className="w-full py-6 text-xs uppercase font-extrabold tracking-wider bg-stone-900 hover:bg-pink-800 disabled:bg-stone-400 disabled:cursor-not-allowed text-white rounded-full shadow-lg transition-all cursor-pointer"
                 disabled={!isFormValid || isLoading || isSubmitting}
               >
                 {isLoading || isSubmitting
-                  ? "Changing Password"
+                  ? "Changing Password..."
                   : "Change Password"}
               </Button>
             </div>

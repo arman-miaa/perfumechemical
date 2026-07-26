@@ -149,7 +149,7 @@ export default function RegistrationForm() {
                     className="mt-1 w-4 h-4 rounded border-stone-300 text-pink-600 focus:ring-pink-600 accent-pink-600"
                     {...form.register("agreedToTerms")}
                   />
-                  <label htmlFor="terms" className="text-sm text-stone-600 leading-tight">
+                  <label htmlFor="terms" className="text-sm cursor-pointer text-stone-600 leading-tight">
                     I agree to the{" "}
                     <Link href="/terms" className="text-pink-600 font-medium hover:underline">
                       Terms of Service

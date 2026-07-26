@@ -24,7 +24,7 @@ const otpSchema = z.object({
         .length(1)
         .regex(/^[A-Za-z0-9]$/, "Must be alphanumeric")
     )
-    .length(4),
+    .length(6),
 });
 
 type OtpFormData = z.infer<typeof otpSchema>;
@@ -38,7 +38,7 @@ export default function Otp() {
     useVerifyOtpMutation() as any;
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const [otpValues, setOtpValues] = useState<string[]>(Array(4).fill(""));
+  const [otpValues, setOtpValues] = useState<string[]>(Array(6).fill(""));
 
   const {
     handleSubmit,
@@ -48,7 +48,7 @@ export default function Otp() {
   } = useForm<OtpFormData>({
     resolver: zodResolver(otpSchema),
     defaultValues: {
-      otp: Array(4).fill(""),
+      otp: Array(6).fill(""),
     },
   });
 
@@ -74,18 +74,18 @@ export default function Otp() {
 
   const handleChange = (index: number, value: string) => {
     if (value.length > 1) {
-      const digits = value.split("").slice(0, 4 - index);
+      const digits = value.split("").slice(0, 6 - index);
       const newOtpValues = [...otpValues];
 
       digits.forEach((digit, i) => {
-        if (index + i < 4) {
+        if (index + i < 6) {
           newOtpValues[index + i] = digit;
           setValue(`otp.${index + i}`, digit);
         }
       });
 
       setOtpValues(newOtpValues);
-      const nextIndex = Math.min(index + digits.length, 3);
+      const nextIndex = Math.min(index + digits.length, 5);
       inputRefs.current[nextIndex]?.focus();
     } else if (/^[0-9]$/.test(value) || value === "") {
       const newOtpValues = [...otpValues];
@@ -93,7 +93,7 @@ export default function Otp() {
       setOtpValues(newOtpValues);
       setValue(`otp.${index}`, value);
 
-      if (value && index < 3) {
+      if (value && index < 5) {
         inputRefs.current[index + 1]?.focus();
       }
     }
@@ -109,7 +109,7 @@ export default function Otp() {
       inputRefs.current[index - 1]?.focus();
     } else if (e.key === "ArrowLeft" && index > 0) {
       inputRefs.current[index - 1]?.focus();
-    } else if (e.key === "ArrowRight" && index < 3) {
+    } else if (e.key === "ArrowRight" && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -145,26 +145,26 @@ export default function Otp() {
   }, []);
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center">
+    <div className="min-h-screen bg-white relative flex items-center justify-center p-4">
       <AnimatePresence>
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.3, ease: [0.4, 0.0, 0.2, 1] }}
-          className="relative z-10 w-full max-w-md"
+          className="relative z-10 w-full max-w-md bg-white rounded-3xl border border-stone-200/80 p-8 sm:p-10"
         >
-          <div className="bg-white p-8 mx-auto">
+          <div className="mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.3 }}
               className="text-center mb-8"
             >
-              <h1 className="text-[40px] font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-stone-900 mb-2 tracking-tight">
                 Enter Code
               </h1>
-              <p className="text-gray-600 text-[18px]">
+              <p className="text-stone-500 text-sm">
                 We’ve sent a code to {email}
               </p>
             </motion.div>
@@ -178,7 +178,7 @@ export default function Otp() {
             >
               <div>
                 <div className="flex justify-between gap-2 sm:gap-3">
-                  {[0, 1, 2, 3].map((index) => (
+                  {[0, 1, 2, 3, 4, 5].map((index) => (
                     <div key={index} className="w-full">
                       <input
                         ref={(el) => {
@@ -190,7 +190,7 @@ export default function Otp() {
                         value={otpValues[index]}
                         onChange={(e) => handleChange(index, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(index, e)}
-                        className="w-15 aspect-square text-center text-xl font-medium border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors border-gray-300"
+                        className="w-full aspect-square text-center text-xl font-medium border rounded-xl focus:ring-4 focus:ring-pink-100 focus:border-pink-300 outline-none transition-all border-stone-200 bg-stone-50"
                         aria-label={`Digit ${index + 1} of OTP`}
                       />
                     </div>
@@ -202,26 +202,26 @@ export default function Otp() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-2 text-sm text-red-600 text-center"
                   >
-                    Please enter a valid 4-digit code
+                    Please enter a valid 6-digit code
                   </motion.p>
                 )}
               </div>
-              <div>
+              <div className="text-sm text-stone-500 text-center">
                 Didn’t get a code?{" "}
                 <span
                   onClick={handleResendOtp}
-                  className="text-black font-semibold cursor-pointer hover:underline"
+                  className="text-pink-600 font-bold cursor-pointer hover:text-pink-700 transition-colors"
                 >
                   Click to resend
                 </span>
               </div>
-              <div className="flex justify-between items-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-2">
                 <motion.button
                   type="submit"
                   disabled={isVerifyingOtp || otpValues.some((v) => !v)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="cursor-pointer w-full bg-primary disabled:bg-primary/60 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                  className="cursor-pointer w-full bg-stone-900 disabled:bg-stone-400 text-white font-extrabold tracking-wider uppercase text-xs h-[50px] px-4 rounded-full transition-colors duration-200 flex items-center justify-center shadow-md hover:bg-pink-800"
                 >
                   {isVerifyingOtp ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -230,19 +230,18 @@ export default function Otp() {
                   )}
                 </motion.button>
 
-                <div>
-                  <Link
-                    href="/forgot-password"
-                    className="text-black font-semibold hover:underline"
+                <Link
+                  href="/forgot-password"
+                  className="w-full"
+                >
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="cursor-pointer w-full font-bold uppercase tracking-wider text-xs h-[50px] px-4 rounded-full transition-colors duration-200 hover:bg-stone-50 border-stone-200 text-stone-700 flex items-center justify-center"
                   >
-                    <Button
-                      variant="outline"
-                      className="cursor-pointer w-full font-medium py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-white flex items-center justify-center"
-                    >
-                      Cancel
-                    </Button>
-                  </Link>
-                </div>
+                    Cancel
+                  </Button>
+                </Link>
               </div>
             </motion.form>
           </div>
