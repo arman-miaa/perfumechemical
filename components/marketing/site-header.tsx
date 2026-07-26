@@ -25,6 +25,8 @@ import {
   primaryLinks,
 } from "@/src/data/site-content";
 import { CategoryAccordion } from "./category-accordion";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 type MobileTab = "menu" | "categories";
 
@@ -120,6 +122,11 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<MobileTab>("categories");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const wishlistCount = useSelector((state: RootState) => state.wishlist.items.length);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartTotal = cartItems.reduce((total, item) => total + (item.priceRaw * item.quantity), 0);
 
   const closeDrawer = () => {
     setMobileOpen(false);
@@ -242,7 +249,7 @@ export function SiteHeader() {
           >
             <Heart size={20} />
             <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
-              0
+              {wishlistCount}
             </span>
           </Link>
 
@@ -254,10 +261,10 @@ export function SiteHeader() {
             <div className="relative">
               <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
               <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
-                0
+                {cartCount}
               </span>
             </div>
-            <span className="ml-1 tracking-tight font-extrabold">0.00৳</span>
+            <span className="ml-1 tracking-tight font-extrabold">{cartTotal.toLocaleString()}৳</span>
           </Link>
 
           {/* Mobile Drawer Trigger */}

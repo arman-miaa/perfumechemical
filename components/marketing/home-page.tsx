@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { HeroCarousel } from "./hero-carousel";
 import { SectionHeading } from "./section-heading";
+import { products } from "@/src/data/mockProducts";
+import { ProductCard } from "@/components/shared/ProductCard";
 
 const categoryCards = [
   {
@@ -52,74 +54,6 @@ const categoryCards = [
   },
 ];
 
-const bestSellerProducts = [
-  {
-    id: "1",
-    name: "Manola Velvet Rose Perfume",
-    category: "Fragrance",
-    type: "fragrance",
-    price: "৳ 2,450",
-    rating: 4.9,
-    reviews: 148,
-    image: "/images/perfume_hero.png",
-    badge: "Bestseller",
-  },
-  {
-    id: "2",
-    name: "Silk Bloom Moisturizing Body Lotion",
-    category: "Body Care",
-    type: "body-care",
-    price: "৳ 850",
-    rating: 4.8,
-    reviews: 96,
-    image: "/images/body_care.png",
-    badge: "New Formula",
-  },
-  {
-    id: "3",
-    name: "Fresh Home Botanical Cleaner",
-    category: "Home Care",
-    type: "home-care",
-    price: "৳ 420",
-    rating: 4.9,
-    reviews: 210,
-    image: "/images/home_care.png",
-    badge: "Eco Pick",
-  },
-  {
-    id: "4",
-    name: "Golden Oud Eau de Parfum",
-    category: "Fragrance",
-    type: "fragrance",
-    price: "৳ 3,200",
-    rating: 5.0,
-    reviews: 84,
-    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
-    badge: "Luxury Edition",
-  },
-  {
-    id: "5",
-    name: "Hydrating Aloe Skin Cream",
-    category: "Body Care",
-    type: "body-care",
-    price: "৳ 680",
-    rating: 4.7,
-    reviews: 112,
-    image: "https://images.unsplash.com/photo-1608248597261-8332586b9a84?auto=format&fit=crop&w=600&q=80",
-    badge: "Organic",
-  },
-  {
-    id: "6",
-    name: "Aroma Lavender Room Diffuser",
-    category: "Home Care",
-    type: "home-care",
-    price: "৳ 1,150",
-    rating: 4.8,
-    reviews: 73,
-    image: "https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=600&q=80",
-    badge: "Popular",
-  },
-];
 
 const testimonials = [
   {
@@ -147,22 +81,15 @@ const testimonials = [
 
 export function HomePage() {
   const [productTab, setProductTab] = useState("all");
-  const [wishlist, setWishlist] = useState<string[]>([]);
 
   // Scent Finder State
   const [quizMood, setQuizMood] = useState("daily");
   const [quizNote, setQuizNote] = useState("floral");
 
-  const toggleWishlist = (id: string) => {
-    setWishlist((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
   const filteredProducts =
     productTab === "all"
-      ? bestSellerProducts
-      : bestSellerProducts.filter((p) => p.type === productTab);
+      ? products
+      : products.filter((p) => p.type === productTab);
 
   return (
     <main className="bg-[#fffdf9] text-stone-800">
@@ -275,68 +202,10 @@ export function HomePage() {
             </div>
           </div>
 
-          {/* Product Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => {
-              const isWished = wishlist.includes(product.id);
-              return (
-                <article
-                  key={product.id}
-                  className="bg-white rounded-2xl border border-stone-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
-                >
-                  <div className="h-[300px] relative overflow-hidden bg-stone-100">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    
-                    {/* Badge */}
-                    <span className="absolute top-4 left-4 bg-pink-700 text-white text-[10px] uppercase font-extrabold tracking-wider px-2.5 py-1 rounded-md shadow-md">
-                      {product.badge}
-                    </span>
-
-                    {/* Wishlist Button */}
-                    <button
-                      onClick={() => toggleWishlist(product.id)}
-                      className={`absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md border border-stone-200 flex items-center justify-center transition-all cursor-pointer ${
-                        isWished ? "text-rose-600 bg-rose-50" : "text-stone-400 hover:text-rose-600"
-                      }`}
-                      aria-label="Add to wishlist"
-                    >
-                      <Heart size={18} fill={isWished ? "currentColor" : "none"} />
-                    </button>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-pink-700">
-                        {product.category}
-                      </span>
-                      <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
-                        <Star size={14} fill="currentColor" />
-                        <span>{product.rating}</span>
-                        <span className="text-stone-400 font-normal">({product.reviews})</span>
-                      </div>
-                    </div>
-
-                    <h3 className="font-serif text-xl font-medium text-stone-900 mb-4 line-clamp-1">
-                      {product.name}
-                    </h3>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-stone-100">
-                      <span className="text-lg font-bold text-stone-900">{product.price}</span>
-                      <Link
-                        href={`/product`}
-                        className="px-4 py-2 rounded-xl bg-stone-900 hover:bg-pink-800 text-white text-xs font-extrabold uppercase tracking-wider transition-colors flex items-center gap-1.5"
-                      >
-                        <ShoppingBag size={14} /> Buy Now
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
 
         </div>
@@ -445,7 +314,7 @@ export function HomePage() {
             </div>
 
             <Link
-              href="/product"
+              href={`/product/${quizNote === "woody" ? "4" : quizNote === "citrus" ? "2" : "1"}`}
               className="w-full py-3 bg-pink-700 hover:bg-pink-600 text-white text-xs font-extrabold uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-2 mt-4"
             >
               Explore Recommendation <ChevronRight size={16} />
