@@ -22,6 +22,12 @@ import {
   BookOpen,
 } from "lucide-react";
 import Marquee from "react-fast-marquee";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+
 import { HeroCarousel } from "./hero-carousel";
 import { SectionHeading } from "./section-heading";
 import { products } from "@/src/data/mockProducts";
@@ -81,6 +87,55 @@ const testimonials = [
     rating: 5,
     product: "Specialty Formulations",
   },
+  {
+    quote: "The Midnight Oud is incredibly rich and exotic. It's my go-to evening fragrance now.",
+    author: "Tanvir Hasan",
+    role: "Verified Buyer, Sylhet",
+    rating: 5,
+    product: "Midnight Oud",
+  },
+  {
+    quote: "A perfect blend of citrus and floral notes. The Ocean Breeze scent is so refreshing for summer.",
+    author: "Sadia Rahman",
+    role: "Verified Buyer, Chittagong",
+    rating: 4,
+    product: "Ocean Breeze",
+  },
+  {
+    quote: "Their industrial grade ethanol is top notch. Highly reliable supplier for our manufacturing needs.",
+    author: "Abdul Karim",
+    role: "Production Manager",
+    rating: 5,
+    product: "Industrial Solvents",
+  },
+  {
+    quote: "I've tried many local brands, but Manola's quality truly rivals international luxury brands.",
+    author: "Jannatul Ferdous",
+    role: "Beauty Blogger",
+    rating: 5,
+    product: "Signature Collection",
+  },
+  {
+    quote: "The home care line is amazing. The lavender room spray makes my house feel like a spa.",
+    author: "Kamrul Islam",
+    role: "Verified Buyer",
+    rating: 5,
+    product: "Lavender Room Spray",
+  },
+  {
+    quote: "Excellent customer service and prompt responses to formulation queries. A great B2B partner.",
+    author: "Md. Shafiqur Rahman",
+    role: "Procurement Officer",
+    rating: 5,
+    product: "Custom Formulations",
+  },
+  {
+    quote: "Absolutely love the packaging and the scent profile of their floral range. Makes a perfect gift!",
+    author: "Ayesha Siddiqa",
+    role: "Verified Buyer, Rajshahi",
+    rating: 5,
+    product: "Floral Bouquet",
+  }
 ];
 
 const articles = [
@@ -511,48 +566,78 @@ export function HomePage() {
       </section>
 
       {/* Customer Reviews Section */}
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 py-20">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-pink-700 text-xs uppercase font-extrabold tracking-widest">
-            Real Experiences
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-stone-900 mt-2 mb-3">
-            Loved in Every Routine
-          </h2>
-          <p className="text-stone-600 text-base">
-            Read what our community has to say about our signature scents and skin care products.
-          </p>
-        </div>
+      <section className="px-5 sm:px-8 py-20 overflow-hidden bg-[#fbf9f6]">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-pink-700 text-xs uppercase font-extrabold tracking-widest">
+              Real Experiences
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-stone-900 mt-2 mb-3">
+              Loved in Every Routine
+            </h2>
+            <p className="text-stone-600 text-base">
+              Read what our community has to say about our signature scents and skin care products.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-2xl border border-stone-200/90 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between"
+          <div className="w-full relative pb-12">
+            <Swiper
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              loop={true}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
+              coverflowEffect={{
+                rotate: 20,
+                stretch: 0,
+                depth: 150,
+                modifier: 1,
+                slideShadows: false,
+              }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              modules={[EffectCoverflow, Pagination, Autoplay]}
+              className="w-full !overflow-visible"
+              style={{ paddingBottom: '3rem' }}
             >
-              <div>
-                <Quote className="text-pink-200 size-10 mb-4" />
-                <div className="flex gap-1 text-amber-500 mb-4">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="currentColor" />
-                  ))}
-                </div>
-                <p className="text-stone-700 text-sm leading-relaxed mb-6 font-normal italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
-                <div>
-                  <h4 className="font-bold text-stone-900 text-sm">{t.author}</h4>
-                  <p className="text-stone-400 text-xs">{t.role}</p>
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-pink-700 bg-pink-50 px-2.5 py-1 rounded-md">
-                  {t.product}
-                </span>
-              </div>
-            </div>
-          ))}
+              {testimonials.map((t, index) => (
+                <SwiperSlide key={index} className="max-w-md w-[85%] sm:w-[420px]">
+                  <div className="bg-white p-8 sm:p-10 rounded-3xl border border-stone-200/90 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] h-full min-h-[300px] flex flex-col justify-between transform transition-all duration-300">
+                    <div>
+                      <Quote className="text-pink-200 size-12 mb-5" />
+                      <div className="flex gap-1 text-amber-500 mb-5">
+                        {[...Array(t.rating)].map((_, i) => (
+                          <Star key={i} size={18} fill="currentColor" />
+                        ))}
+                      </div>
+                      <p className="text-stone-700 text-base leading-relaxed mb-8 font-normal italic">
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
+                    </div>
+                    <div className="pt-5 border-t border-stone-100 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <img 
+                          src={`https://api.dicebear.com/9.x/glass/svg?seed=${t.author}&backgroundColor=fbcfe8`} 
+                          alt={t.author}
+                          className="w-10 h-10 rounded-full border border-pink-200 shadow-sm shrink-0"
+                        />
+                        <div>
+                          <h4 className="font-bold text-stone-900 text-base leading-none">{t.author}</h4>
+                          <p className="text-stone-400 text-[11px] mt-1">{t.role}</p>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-pink-700 bg-pink-50 px-2 py-1 rounded-md text-right max-w-[100px] leading-tight shrink-0">
+                        {t.product}
+                      </span>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </section>
 
