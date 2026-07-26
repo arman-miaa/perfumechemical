@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check, ChevronLeft } from "lucide-react";
+import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check, ChevronLeft, ShoppingBag, Shirt } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { products, Product } from "@/src/data/mockProducts";
 import { ProductCard } from "@/components/shared/ProductCard";
@@ -75,10 +75,11 @@ function ProductCatalog() {
   );
 
   const categories = [
-    { id: "all", label: "All Formulations", icon: Sparkles },
-    { id: "fragrance", label: "Signature Fragrances", icon: Flame },
-    { id: "body-care", label: "Body & Skin Care", icon: Droplets },
-    { id: "home-care", label: "Home Essentials", icon: Home },
+    { id: "all", label: "All Products", icon: Sparkles },
+    { id: "personal-care", label: "Personal Care", icon: Droplets },
+    { id: "home-cleaning", label: "Home Cleaning", icon: Home },
+    { id: "laundry-care", label: "Laundry & Fabric Care", icon: Shirt },
+    { id: "beauty-fragrance", label: "Beauty & Fragrance", icon: Flame },
   ];
 
   return (

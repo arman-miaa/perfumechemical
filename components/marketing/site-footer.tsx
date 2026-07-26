@@ -128,23 +128,23 @@ export function SiteFooter() {
             </h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/product?category=fragrance" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
-                  Luxury Fragrances
+                <Link href="/product?category=personal-care" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
+                  Personal Care & Grooming
                 </Link>
               </li>
               <li>
-                <Link href="/product?category=body-care" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
-                  Personal & Body Care
+                <Link href="/product?category=home-cleaning" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
+                  Home Cleaning Products
                 </Link>
               </li>
               <li>
-                <Link href="/product?category=home-care" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
-                  Home Care Essentials
+                <Link href="/product?category=laundry-care" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
+                  Laundry & Fabric Care
                 </Link>
               </li>
               <li>
-                <Link href="/shop" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
-                  New Arrivals & Bestsellers
+                <Link href="/product?category=beauty-fragrance" className="hover:text-white hover:translate-x-1 inline-block transition-all text-stone-400">
+                  Beauty & Fragrance
                 </Link>
               </li>
               <li>

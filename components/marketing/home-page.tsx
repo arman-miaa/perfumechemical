@@ -35,32 +35,32 @@ import { ProductCard } from "@/components/shared/ProductCard";
 
 const categoryCards = [
   {
-    title: "Luxury Fragrances",
-    description: "Formulated for lasting allure",
-    image: "/images/perfume_hero.png",
-    href: "/product?category=fragrance",
-    tag: "Signature Line",
-  },
-  {
-    title: "Personal & Body Care",
-    description: "Nourishing daily skin rituals",
+    title: "Personal Care & Grooming",
+    description: "Body wash, shampoo, hand wash & more",
     image: "/images/body_care.png",
-    href: "/product?category=body-care",
+    href: "/product?category=personal-care",
     tag: "Derm Tested",
   },
   {
-    title: "Home Care Essentials",
-    description: "Freshness for every corner",
+    title: "Home Cleaning Products",
+    description: "Floor, toilet, glass & kitchen cleaners",
     image: "/images/home_care.png",
-    href: "/product?category=home-care",
-    tag: "Eco Friendly",
+    href: "/product?category=home-cleaning",
+    tag: "Tough on Stains",
   },
   {
-    title: "Specialty Chemicals",
-    description: "Industry-grade pure formulations",
+    title: "Laundry & Fabric Care",
+    description: "Detergent, softener, stain remover",
     image: "/images/specialty_chemicals.png",
-    href: "/portfolio",
-    tag: "B2B Solutions",
+    href: "/product?category=laundry-care",
+    tag: "Fresh Results",
+  },
+  {
+    title: "Beauty & Fragrance",
+    description: "Perfumes, body sprays & lotions",
+    image: "/images/perfume_hero.png",
+    href: "/product?category=beauty-fragrance",
+    tag: "Signature Line",
   },
 ];
 
@@ -362,9 +362,10 @@ export function HomePage() {
             <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
               {[
                 { label: "All Items", value: "all" },
-                { label: "Fragrances", value: "fragrance" },
-                { label: "Body Care", value: "body-care" },
-                { label: "Home Care", value: "home-care" },
+                { label: "Personal Care", value: "personal-care" },
+                { label: "Home Cleaning", value: "home-cleaning" },
+                { label: "Laundry Care", value: "laundry-care" },
+                { label: "Beauty & Fragrance", value: "beauty-fragrance" },
               ].map((tab) => (
                 <button
                   key={tab.value}
