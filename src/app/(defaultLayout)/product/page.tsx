@@ -3,7 +3,8 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check } from "lucide-react";
+import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check, ChevronLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { products, Product } from "@/src/data/mockProducts";
 import { ProductCard } from "@/components/shared/ProductCard";
 
@@ -19,6 +20,13 @@ function ProductCatalog() {
   const [priceRange, setPriceRange] = useState<string>("all");
   const [customMinPrice, setCustomMinPrice] = useState<string>("");
   const [customMaxPrice, setCustomMaxPrice] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 9;
+
+  useEffect(() => {
+    setCurrentPage(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeCategory, searchQuery, priceRange, customMinPrice, customMaxPrice, sortBy]);
 
   const filteredProducts = React.useMemo(() => {
     let result = [...products];
@@ -60,6 +68,12 @@ function ProductCatalog() {
     return result;
   }, [activeCategory, searchQuery, priceRange, customMinPrice, customMaxPrice, sortBy]);
 
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const currentProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   const categories = [
     { id: "all", label: "All Formulations", icon: Sparkles },
     { id: "fragrance", label: "Signature Fragrances", icon: Flame },
@@ -98,7 +112,7 @@ function ProductCatalog() {
         
         {/* Modern Sidebar Filters */}
         <aside className={`lg:w-72 shrink-0 transition-all ${isSidebarOpen ? "block" : "hidden lg:block"}`}>
-          <div className="sticky top-24 space-y-6">
+          <div className="sticky top-28 self-start space-y-6 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
             {/* Categories Card */}
             <div className="bg-white rounded-[2rem] border border-stone-200/80 p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-stone-900 mb-6">
@@ -245,12 +259,67 @@ function ProductCatalog() {
           </div>
 
           {/* Grid */}
-          {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+          {currentProducts.length > 0 ? (
+            <>
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={`${currentPage}-${activeCategory}-${sortBy}-${priceRange}-${customMinPrice}-${customMaxPrice}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"
+                >
+                  {currentProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-16 border-t border-stone-200/80 pt-8">
+                  <button 
+                    onClick={() => {
+                      setCurrentPage(prev => Math.max(1, prev - 1));
+                      window.scrollTo({ top: 400, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === 1}
+                    className="w-10 h-10 flex items-center justify-center bg-white rounded-xl border border-stone-200 text-stone-600 hover:border-pink-300 hover:text-pink-700 hover:bg-pink-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  
+                  {Array.from({ length: totalPages }).map((_, i) => (
+                    <button
+                      key={i + 1}
+                      onClick={() => {
+                        setCurrentPage(i + 1);
+                        window.scrollTo({ top: 400, behavior: 'smooth' });
+                      }}
+                      className={`w-10 h-10 flex items-center justify-center rounded-xl text-sm font-bold transition-all cursor-pointer ${
+                        currentPage === i + 1
+                          ? "bg-pink-700 text-white shadow-md shadow-pink-700/20"
+                          : "bg-white border border-stone-200 text-stone-600 hover:border-pink-300 hover:text-pink-700 hover:bg-pink-50"
+                      }`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+
+                  <button 
+                    onClick={() => {
+                      setCurrentPage(prev => Math.min(totalPages, prev + 1));
+                      window.scrollTo({ top: 400, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === totalPages}
+                    className="w-10 h-10 flex items-center justify-center bg-white rounded-xl border border-stone-200 text-stone-600 hover:border-pink-300 hover:text-pink-700 hover:bg-pink-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center py-32 bg-white rounded-3xl border border-stone-200/80 shadow-sm text-center px-4">
               <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center text-stone-300 mb-6 border border-stone-100">

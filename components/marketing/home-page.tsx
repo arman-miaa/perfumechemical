@@ -382,11 +382,19 @@ export function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
+            {filteredProducts.slice(0, 6).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
+          <div className="mt-12 flex justify-center">
+            <Link 
+              href="/product"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-stone-900 hover:bg-pink-800 text-white text-sm font-extrabold uppercase tracking-wider transition-colors shadow-lg cursor-pointer"
+            >
+              View All Collections <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
