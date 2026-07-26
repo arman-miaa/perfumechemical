@@ -70,17 +70,17 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="min-h-screen bg-rose-50/30 flex items-center justify-center p-4">
-      <div className="w-full max-w-[1100px] bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(225,29,72,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-[1100px] bg-white rounded-3xl border border-stone-200/80 overflow-hidden flex flex-col md:flex-row min-h-[600px]">
         
         {/* Left Side: Lottie Animation (Hidden on mobile) */}
-        <div className="hidden md:flex md:w-1/2 bg-gradient-to-bl from-rose-50 to-pink-100 p-12 items-center justify-center relative">
+        <div className="hidden md:flex md:w-1/2 bg-gradient-to-bl from-stone-100 to-pink-50 p-12 items-center justify-center relative">
           <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px]" />
           <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
-            <h2 className="text-3xl font-extrabold text-rose-950 text-center mb-4">
+            <h2 className="text-3xl font-extrabold text-stone-900 text-center mb-4 font-serif">
               Join Perfume Chemical
             </h2>
-            <p className="text-rose-700/80 text-center text-sm font-medium mb-8">
+            <p className="text-stone-500 text-center text-sm font-medium mb-8">
               Create an account to explore premium fragrances.
             </p>
             <div className="w-full max-w-[400px] flex items-center justify-center p-4">
@@ -89,9 +89,10 @@ export default function RegistrationForm() {
                   animationData={animationData}
                   loop={true}
                   className="w-full h-full opacity-90"
+                  style={{ filter: "hue-rotate(-40deg) saturate(1.2)" }}
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-rose-500 font-medium">
+                <div className="w-full h-full flex items-center justify-center text-pink-500 font-medium">
                   Loading animation...
                 </div>
               )}
@@ -103,8 +104,8 @@ export default function RegistrationForm() {
         <div className="w-full md:w-1/2 p-8 md:p-14 flex flex-col justify-center">
           <div className="mx-auto w-full max-w-sm">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Create Account</h1>
-              <p className="text-slate-500 text-sm">
+              <h1 className="text-3xl font-bold text-stone-900 mb-2 tracking-tight">Create Account</h1>
+              <p className="text-stone-500 text-sm">
                 Fill in your details below to get started.
               </p>
             </div>
@@ -145,16 +146,16 @@ export default function RegistrationForm() {
                   <input
                     type="checkbox"
                     id="terms"
-                    className="mt-1 w-4 h-4 rounded border-gray-300 text-rose-600 focus:ring-rose-600 accent-rose-600"
+                    className="mt-1 w-4 h-4 rounded border-stone-300 text-pink-600 focus:ring-pink-600 accent-pink-600"
                     {...form.register("agreedToTerms")}
                   />
-                  <label htmlFor="terms" className="text-sm text-slate-600 leading-tight">
+                  <label htmlFor="terms" className="text-sm text-stone-600 leading-tight">
                     I agree to the{" "}
-                    <Link href="/terms" className="text-rose-600 font-medium hover:underline">
+                    <Link href="/terms" className="text-pink-600 font-medium hover:underline">
                       Terms of Service
                     </Link>{" "}
                     and{" "}
-                    <Link href="/privacy" className="text-rose-600 font-medium hover:underline">
+                    <Link href="/privacy" className="text-pink-600 font-medium hover:underline">
                       Privacy Policy
                     </Link>
                   </label>
@@ -168,18 +169,18 @@ export default function RegistrationForm() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-6 mt-4 text-[15px] font-bold bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-[0_8px_20px_rgba(225,29,72,0.25)] hover:shadow-[0_12px_25px_rgba(225,29,72,0.35)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+                  className="w-full py-6 mt-4 text-xs uppercase font-extrabold tracking-wider bg-stone-900 hover:bg-pink-800 text-white rounded-full shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   {isLoading ? "Creating Account..." : "Create Account"}
                 </Button>
               </form>
             </FormProvider>
 
-            <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center gap-1.5">
-              <span className="text-sm text-slate-500">Already have an account?</span>
+            <div className="mt-8 pt-6 border-t border-stone-100 flex items-center justify-center gap-1.5">
+              <span className="text-sm text-stone-500">Already have an account?</span>
               <Link 
                 href="/login" 
-                className="text-sm font-bold text-rose-600 hover:text-rose-700 transition-colors"
+                className="text-sm font-bold text-pink-600 hover:text-pink-700 transition-colors"
               >
                 Sign In
               </Link>
