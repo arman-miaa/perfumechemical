@@ -191,91 +191,113 @@ export function SiteHeader() {
       </div>
 
       {/* Main Logo & Utility Header */}
-      <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-3.5 flex items-center justify-between border-b border-slate-100 gap-4">
-        {/* Brand / Logo */}
-        <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-all">
-            <span className="font-serif font-black text-xl tracking-tighter">M</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif font-bold text-xl md:text-2xl text-rose-700 tracking-tight group-hover:text-rose-600 transition-colors">
-              ম্যানোলা
-            </span>
-            <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase -mt-0.5">
-              অমলিন সুরভি অনন্যা
-            </span>
-          </div>
-        </Link>
-
-        {/* Center Search Input (Desktop) */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="hidden md:flex flex-1 max-w-md mx-6 relative"
-        >
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products, reports, categories..."
-            className="w-full bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 focus:border-rose-400 focus:ring-4 focus:ring-rose-100/60 rounded-full py-2 pl-4 pr-10 text-xs text-slate-800 placeholder:text-slate-400 transition-all outline-none"
-          />
-          <button
-            type="submit"
-            aria-label="Search"
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-all shadow-sm cursor-pointer"
-          >
-            <Search size={13} />
-          </button>
-        </form>
-
-        {/* Right Actions: Account, Wishlist, Cart */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* User Account Icon */}
-          <Link
-            href="/login"
-            className="p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
-            aria-label="Account / Login"
-            title="Account / Login"
-          >
-            <User size={20} />
-          </Link>
-
-          {/* Wishlist */}
-          <Link
-            href="/wishlist"
-            className="relative p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
-            aria-label="Wishlist"
-            title="Wishlist"
-          >
-            <Heart size={20} />
-            <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
-              {wishlistCount}
-            </span>
-          </Link>
-
-          {/* Cart Capsule Widget */}
-          <Link
-            href="/shop"
-            className="flex items-center gap-2 bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-500 hover:to-pink-600 border border-rose-200/80 text-rose-700 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm group cursor-pointer"
-          >
-            <div className="relative">
-              <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
-              <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
-                {cartCount}
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-3.5 border-b border-slate-100">
+        <div className="flex items-center justify-between gap-4">
+          {/* Brand / Logo */}
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-all">
+              <span className="font-serif font-black text-xl tracking-tighter">M</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-xl md:text-2xl text-rose-700 tracking-tight group-hover:text-rose-600 transition-colors">
+                ম্যানোলা
+              </span>
+              <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase -mt-0.5">
+                অমলিন সুরভি অনন্যা
               </span>
             </div>
-            <span className="ml-1 tracking-tight font-extrabold">{cartTotal.toLocaleString()}৳</span>
           </Link>
 
-          {/* Mobile Drawer Trigger */}
-          <button
-            className="block md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
-            aria-label="Open navigation"
-            onClick={() => setMobileOpen(true)}
-            type="button"
+          {/* Center Search Input (Desktop) */}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="hidden md:flex flex-1 max-w-md mx-6 relative"
           >
-            <Menu size={22} />
-          </button>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search products, reports, categories..."
+              className="w-full bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 focus:border-rose-400 focus:ring-4 focus:ring-rose-100/60 rounded-full py-2 pl-4 pr-10 text-xs text-slate-800 placeholder:text-slate-400 transition-all outline-none"
+            />
+            <button
+              type="submit"
+              aria-label="Search"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-all shadow-sm cursor-pointer"
+            >
+              <Search size={13} />
+            </button>
+          </form>
+
+          {/* Right Actions: Account, Wishlist, Cart */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* User Account Icon */}
+            <Link
+              href="/login"
+              className="p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
+              aria-label="Account / Login"
+              title="Account / Login"
+            >
+              <User size={20} />
+            </Link>
+
+            {/* Wishlist */}
+            <Link
+              href="/wishlist"
+              className="relative p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
+              aria-label="Wishlist"
+              title="Wishlist"
+            >
+              <Heart size={20} />
+              <span className="absolute top-0 right-0 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+                {wishlistCount}
+              </span>
+            </Link>
+
+            {/* Cart Capsule Widget */}
+            <Link
+              href="/shop"
+              className="flex items-center gap-2 bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-500 hover:to-pink-600 border border-rose-200/80 text-rose-700 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm group cursor-pointer"
+            >
+              <div className="relative">
+                <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
+                <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
+                  {cartCount}
+                </span>
+              </div>
+              <span className="ml-1 tracking-tight font-extrabold hidden sm:inline-block">{cartTotal.toLocaleString()}৳</span>
+            </Link>
+
+            {/* Mobile Drawer Trigger */}
+            <button
+              className="block md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+              aria-label="Open navigation"
+              onClick={() => setMobileOpen(true)}
+              type="button"
+            >
+              <Menu size={22} />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Search Input */}
+        <div className="mt-3 md:hidden">
+          <form onSubmit={handleSearchSubmit} className="flex relative w-full">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search products, reports, categories..."
+              className="w-full bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 focus:border-rose-400 focus:ring-4 focus:ring-rose-100/60 rounded-full py-2 pl-4 pr-10 text-xs text-slate-800 placeholder:text-slate-400 transition-all outline-none"
+            />
+            <button
+              type="submit"
+              aria-label="Search"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-all shadow-sm cursor-pointer"
+            >
+              <Search size={13} />
+            </button>
+          </form>
         </div>
       </div>
 
@@ -349,34 +371,25 @@ export function SiteHeader() {
         }`}
         aria-hidden={!mobileOpen}
       >
-        {/* Mobile Search Header */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="flex h-[64px] items-center gap-3 px-4 border-b border-slate-100 bg-slate-50/50"
-        >
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products or pages..."
-            aria-label="Search"
-            className="min-w-0 flex-1 border-0 outline-none text-xs text-slate-800 placeholder:text-slate-400 font-medium bg-transparent"
-          />
-          <button
-            type="submit"
-            aria-label="Perform search"
-            className="grid place-items-center p-2 text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-full transition-colors cursor-pointer"
-          >
-            <Search size={16} />
-          </button>
+        {/* Drawer Header */}
+        <div className="flex h-[64px] items-center justify-between px-5 border-b border-slate-100 bg-white shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-sm shadow-rose-200">
+              <span className="font-serif font-black text-base tracking-tighter">M</span>
+            </div>
+            <span className="font-serif font-bold text-lg text-rose-700 tracking-tight">
+              ম্যানোলা
+            </span>
+          </div>
           <button
             type="button"
             onClick={closeDrawer}
             aria-label="Close navigation"
-            className="grid place-items-center p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
+            className="grid place-items-center p-2 text-slate-500 hover:bg-slate-100 hover:text-rose-600 rounded-full transition-colors cursor-pointer"
           >
-            <X size={18} />
+            <X size={20} />
           </button>
-        </form>
+        </div>
 
         {/* Mobile Navigation Tabs */}
         <div className="grid grid-cols-2 h-[48px] bg-slate-50 border-b border-slate-200/80">
