@@ -228,15 +228,6 @@ export function SiteFooter() {
             <span className="px-2.5 py-1 rounded bg-stone-900 border border-stone-800 text-stone-300 font-bold text-[11px]">Cash on Delivery</span>
           </div>
 
-          {/* Scroll to top button */}
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 text-xs transition-colors cursor-pointer"
-            aria-label="Scroll to top"
-          >
-            <span>Back to top</span>
-            <ChevronUp size={15} />
-          </button>
         </div>
 
       </div>
