@@ -208,7 +208,7 @@ export function ContactUsComponent() {
                   return (
                     <div
                       key={faq.id}
-                      className={`rounded-2xl transition-all duration-200 border ${
+                      className={`rounded-2xl transition-all duration-300 border overflow-hidden ${
                         isOpen
                           ? "bg-rose-50/40 border-rose-200/80 shadow-sm"
                           : "bg-slate-50/60 border-slate-100 hover:border-slate-200 hover:bg-slate-50"
@@ -217,21 +217,23 @@ export function ContactUsComponent() {
                       <button
                         type="button"
                         onClick={() => toggleFaq(faq.id)}
-                        className="w-full flex items-center justify-between p-4 sm:p-5 text-left gap-4"
+                        className="w-full flex items-center justify-between p-4 sm:p-5 text-left gap-4 cursor-pointer"
                       >
                         <span className={`text-xs sm:text-sm font-bold transition-colors ${isOpen ? "text-rose-700" : "text-slate-800"}`}>
                           {faq.question}
                         </span>
-                        <div className={`p-1.5 rounded-xl transition-all shrink-0 ${isOpen ? "bg-rose-600 text-white rotate-180" : "bg-white text-slate-400 shadow-sm"}`}>
+                        <div className={`p-1.5 rounded-xl transition-transform duration-300 shrink-0 ${isOpen ? "bg-rose-600 text-white rotate-180" : "bg-white text-slate-400 shadow-sm"}`}>
                           <ChevronDown className="w-4 h-4" />
                         </div>
                       </button>
 
-                      {isOpen && (
-                        <div className="px-4 sm:px-5 pb-5 pt-0 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-rose-100/60 mt-1">
-                          <p className="pt-3">{faq.answer}</p>
+                      <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                        <div className="overflow-hidden">
+                          <div className="px-4 sm:px-5 pb-5 pt-0 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-rose-100/60 mt-1">
+                            <p className="pt-3">{faq.answer}</p>
+                          </div>
                         </div>
-                      )}
+                      </div>
                     </div>
                   );
                 })}
