@@ -1,5 +1,5 @@
-import { PagePlaceholder } from "@/components/marketing/page-placeholder";
+import { BlogPage } from "@/components/marketing/blog-page";
 
-export default function BlogPage() {
-  return <PagePlaceholder title="Blog & Journal" category="Editorial" description="Stories, formulation tips, and fragrance insights from Manola." />;
+export default function Page() {
+  return <BlogPage />;
 }
