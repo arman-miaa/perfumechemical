@@ -65,11 +65,10 @@ function Dropdown({
     >
       <button
         type="button"
-        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all border-0 cursor-pointer whitespace-nowrap ${
-          isDropdownActive
+        className={`flex items-center gap-1.5 px-2 lg:px-3 py-2 rounded-full text-[11px] lg:text-[13px] uppercase font-bold tracking-wide transition-all border-0 cursor-pointer whitespace-nowrap ${isDropdownActive
             ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
             : "bg-transparent text-slate-700 hover:text-rose-600 hover:bg-rose-50"
-        }`}
+          }`}
       >
         <span>{label}</span>
         <ChevronDown
@@ -95,11 +94,10 @@ function Dropdown({
                   <Link
                     href={link.href}
                     key={link.title}
-                    className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium transition-all mx-1 my-0.5 rounded-xl ${
-                      isActive
+                    className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium transition-all mx-1 my-0.5 rounded-xl ${isActive
                         ? "text-rose-600 bg-rose-50 font-bold"
                         : "text-slate-600 hover:text-rose-600 hover:bg-slate-50"
-                    }`}
+                      }`}
                   >
                     <span>{link.title}</span>
                     {isActive && (
@@ -146,18 +144,18 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="relative z-30 bg-white">
+    <header className="relative z-30 bg-white overflow-x-hidden">
       {/* Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white text-xs py-2 px-4 shadow-sm">
+      <div className="bg-gradient-to-r from-pink-700 via-rose-600 to-pink-700 text-white text-xs py-2 px-4 overflow-hidden">
         <div className="max-w-[1280px] mx-auto flex items-center justify-between">
           <div className="flex-1 flex items-center justify-center md:justify-start gap-2">
-            <Sparkles size={14} className="animate-pulse text-amber-200 hidden sm:inline-block" />
-            <span className="font-medium tracking-wide text-center md:text-left text-[11px] sm:text-xs">
-              Welcome To Perfume Chemical Industries PLC.
+            <Sparkles size={13} className="text-pink-200 hidden sm:inline-block" />
+            <span className="font-medium tracking-wide text-center md:text-left text-[11px] text-pink-100">
+              Welcome To <span className="text-white font-semibold">Perfume Chemical Industries PLC.</span>
             </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-4 text-white/90">
+          <div className="hidden md:flex items-center gap-3 text-white/90 shrink-0">
             <a
               href="#"
               aria-label="Facebook"
@@ -191,18 +189,18 @@ export function SiteHeader() {
       </div>
 
       {/* Main Logo & Utility Header */}
-      <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-3.5 border-b border-slate-100">
-        <div className="flex items-center justify-between gap-4">
+      <div className="max-w-[1280px] mx-auto px-4 lg:px-6 py-3.5 border-b border-slate-100 overflow-hidden">
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand / Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="Home">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-all">
-              <span className="font-serif font-black text-xl tracking-tighter">M</span>
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0" aria-label="Home">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-all">
+              <span className="font-serif font-black text-lg sm:text-xl tracking-tighter">M</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-xl md:text-2xl text-rose-700 tracking-tight group-hover:text-rose-600 transition-colors">
+              <span className="font-serif font-bold text-lg sm:text-xl md:text-2xl text-rose-700 tracking-tight group-hover:text-rose-600 transition-colors">
                 ম্যানোলা
               </span>
-              <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase -mt-0.5">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium tracking-wider uppercase -mt-0.5 hidden sm:block">
                 অমলিন সুরভি অনন্যা
               </span>
             </div>
@@ -230,11 +228,11 @@ export function SiteHeader() {
           </form>
 
           {/* Right Actions: Account, Wishlist, Cart */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
             {/* User Account Icon */}
             <Link
               href="/login"
-              className="p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
+              className="hidden sm:flex p-2 text-slate-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200"
               aria-label="Account / Login"
               title="Account / Login"
             >
@@ -257,15 +255,15 @@ export function SiteHeader() {
             {/* Cart Capsule Widget */}
             <Link
               href="/shop"
-              className="flex items-center gap-2 bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-500 hover:to-pink-600 border border-rose-200/80 text-rose-700 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm group cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-rose-50 to-pink-50 hover:from-rose-500 hover:to-pink-600 border border-rose-200/80 text-rose-700 hover:text-white px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm group cursor-pointer"
             >
               <div className="relative">
-                <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
+                <ShoppingBag size={16} className="sm:w-[18px] sm:h-[18px] group-hover:scale-110 transition-transform" />
                 <span className="absolute -top-2 -right-2 w-4 h-4 bg-rose-600 group-hover:bg-white group-hover:text-rose-600 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
                   {cartCount}
                 </span>
               </div>
-              <span className="ml-1 tracking-tight font-extrabold hidden sm:inline-block">{cartTotal.toLocaleString()}৳</span>
+              <span className="tracking-tight font-extrabold hidden sm:inline-block">{cartTotal.toLocaleString()}৳</span>
             </Link>
 
             {/* Mobile Drawer Trigger */}
@@ -305,16 +303,15 @@ export function SiteHeader() {
       <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs overflow-visible">
         <div className="max-w-[1280px] mx-auto px-4 overflow-visible">
           <nav
-            className="hidden md:flex items-center justify-center gap-1 py-1.5 overflow-visible"
+            className="hidden md:flex items-center justify-center gap-0.5 lg:gap-1 py-1.5 overflow-visible"
             aria-label="Primary navigation"
           >
             <Link
               href="/"
-              className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${
-                pathname === "/"
+              className={`px-2 lg:px-3 py-1.5 rounded-full text-[11px] lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${pathname === "/"
                   ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
                   : "text-slate-700 hover:text-rose-600 hover:bg-rose-50"
-              }`}
+                }`}
             >
               Home
             </Link>
@@ -339,11 +336,10 @@ export function SiteHeader() {
                 <Link
                   href={item.href}
                   key={item.title}
-                  className={`px-3 py-1.5 rounded-full text-xs lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${
-                    isActive
+                  className={`px-2 lg:px-3 py-1.5 rounded-full text-[11px] lg:text-[13px] uppercase font-bold tracking-wide transition-all whitespace-nowrap ${isActive
                       ? "bg-rose-600 text-white shadow-sm shadow-rose-200"
                       : "text-slate-700 hover:text-rose-600 hover:bg-rose-50"
-                  }`}
+                    }`}
                 >
                   {item.title}
                 </Link>
@@ -366,9 +362,8 @@ export function SiteHeader() {
 
       {/* Mobile Drawer Panel */}
       <aside
-        className={`fixed left-0 top-0 bottom-0 w-[min(86vw,360px)] bg-white z-50 flex flex-col shadow-2xl transition-transform duration-300 ease-out overflow-y-auto ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 bottom-0 w-[min(86vw,360px)] bg-white z-50 flex flex-col shadow-2xl transition-transform duration-300 ease-out overflow-y-auto ${mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         aria-hidden={!mobileOpen}
       >
         {/* Drawer Header */}
@@ -395,22 +390,20 @@ export function SiteHeader() {
         <div className="grid grid-cols-2 h-[48px] bg-slate-50 border-b border-slate-200/80">
           <button
             type="button"
-            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
-              mobileTab === "menu"
+            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${mobileTab === "menu"
                 ? "text-rose-600 bg-white border-b-2 border-b-rose-600 shadow-2xs"
                 : "text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
             onClick={() => setMobileTab("menu")}
           >
             Menu
           </button>
           <button
             type="button"
-            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
-              mobileTab === "categories"
+            className={`border-0 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${mobileTab === "categories"
                 ? "text-rose-600 bg-white border-b-2 border-b-rose-600 shadow-2xs"
                 : "text-slate-500 hover:text-slate-800"
-            }`}
+              }`}
             onClick={() => setMobileTab("categories")}
           >
             Categories
@@ -422,11 +415,10 @@ export function SiteHeader() {
             <Link
               href="/"
               onClick={closeDrawer}
-              className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${
-                pathname === "/"
+              className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${pathname === "/"
                   ? "text-rose-600 bg-rose-50/60 font-extrabold"
                   : "text-slate-700 hover:bg-slate-50 hover:text-rose-600"
-              }`}
+                }`}
             >
               Home
             </Link>
@@ -442,11 +434,10 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={closeDrawer}
                     key={item.title}
-                    className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${
-                      isActive
+                    className={`flex items-center justify-between min-h-[48px] px-5 text-xs font-bold uppercase tracking-wide border-b border-slate-100 transition-colors ${isActive
                         ? "text-rose-600 bg-rose-50/60 font-extrabold"
                         : "text-slate-700 hover:bg-slate-50 hover:text-rose-600"
-                    }`}
+                      }`}
                   >
                     <span>{item.title}</span>
                     {isActive && (
