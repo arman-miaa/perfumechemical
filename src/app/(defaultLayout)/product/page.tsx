@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check, ChevronLeft, ShoppingBag, Shirt } from "lucide-react";
+import { ChevronRight, Filter, SlidersHorizontal, SearchX, Sparkles, Droplets, Home, Flame, ChevronDown, Check, ChevronLeft, Shirt } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { products, Product } from "@/src/data/mockProducts";
+import { products } from "@/src/data/mockProducts";
 import { ProductCard } from "@/components/shared/ProductCard";
 
 function ProductCatalog() {
@@ -85,8 +86,8 @@ function ProductCatalog() {
   return (
     <main className="bg-[#fbf9f6] min-h-screen pb-24">
       {/* Modern Header Section */}
-      <div className="bg-gradient-to-b from-stone-100 to-[#fbf9f6] pt-12 pb-10 border-b border-stone-200/80 mb-10">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
+      <div className="bg-linear-to-b from-stone-100 to-[#fbf9f6] pt-12 pb-10 border-b border-stone-200/80 mb-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-widest text-stone-400 mb-6">
             <Link href="/" className="hover:text-pink-700 transition-colors">Home</Link>
             <ChevronRight size={12} />
@@ -109,13 +110,13 @@ function ProductCatalog() {
         </div>
       </div>
 
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row gap-10">
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col lg:flex-row gap-10">
         
         {/* Modern Sidebar Filters */}
         <aside className={`lg:w-72 shrink-0 transition-all ${isSidebarOpen ? "block" : "hidden lg:block"}`}>
           <div className="sticky top-28 self-start space-y-6 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin' }}>
             {/* Categories Card */}
-            <div className="bg-white rounded-[2rem] border border-stone-200/80 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-4xl border border-stone-200/80 p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-stone-900 mb-6">
                 <SlidersHorizontal size={16} className="text-pink-600" />
                 Category
@@ -146,7 +147,7 @@ function ProductCatalog() {
             </div>
 
             {/* Price Filter */}
-            <div className="bg-white rounded-[2rem] border border-stone-200/80 p-6 shadow-sm">
+            <div className="bg-white rounded-4xl border border-stone-200/80 p-6 shadow-sm">
               <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-stone-900 mb-6">
                 Price Range
               </div>
